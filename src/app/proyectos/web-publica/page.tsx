@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function WebPublica() {
   return (
-    <article className="py-12">
+    <article className="mx-auto max-w-2xl py-12">
       <Volver href="/#proyectos" texto="proyectos" />
 
       <Titulo

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Notas() {
   return (
-    <div className="py-12">
+    <div className="mx-auto max-w-2xl py-12">
       <Titulo bajada="Cosas que decidí en sistemas que hoy usa gente, contadas con el razonamiento y no solo con el resultado. Escribo cuando algo me costó entenderlo.">
         Notas
       </Titulo>

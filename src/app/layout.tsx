@@ -143,7 +143,12 @@ export default function RootLayout({
           Ir al contenido
         </a>
 
-        <div className="mx-auto flex min-h-dvh max-w-2xl flex-col px-6">
+        {/*
+          El contenedor es ancho porque la home usa dos columnas en escritorio.
+          Las páginas de lectura (notas y casos) se angostan solas con
+          `max-w-2xl`: un párrafo de 1100px de ancho es ilegible.
+        */}
+        <div className="mx-auto flex min-h-dvh max-w-6xl flex-col px-6">
           <header className="sticky top-0 z-40 -mx-6 flex items-center justify-between border-b border-line/70 bg-background/85 px-6 py-4 backdrop-blur-md">
             <Link
               href="/"

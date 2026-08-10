@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PermisosNoRoles() {
   return (
-    <article className="py-12">
+    <article className="mx-auto max-w-2xl py-12">
       <Volver href="/notas" texto="notas" />
 
       <Titulo meta={`${nota.fechaTexto} · ${nota.minutos} min de lectura`}>
