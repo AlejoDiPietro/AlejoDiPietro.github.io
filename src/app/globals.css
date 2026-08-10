@@ -182,6 +182,20 @@ p {
   color: var(--background);
 }
 
+/*
+ * Scroll sin barra visible. Lo usa la columna fija de la home: en pantallas
+ * bajas su contenido no entra, y sin esto la parte de abajo queda inalcanzable
+ * porque `sticky` la clava fuera de la vista.
+ */
+.sin-barra {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sin-barra::-webkit-scrollbar {
+  display: none;
+}
+
 /* Hairline con degradado del acento: la usan los títulos de sección. */
 .regla-acento {
   background-image: linear-gradient(

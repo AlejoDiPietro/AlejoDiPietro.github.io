@@ -48,7 +48,14 @@ export default function Home() {
       Debajo de lg todo vuelve a ser una sola columna apilada.
     */
     <div className="lg:flex lg:gap-16 xl:gap-24">
-      <header className="py-14 sm:py-20 lg:sticky lg:top-16 lg:h-fit lg:w-[22rem] lg:shrink-0 lg:py-24">
+      {/*
+        La columna fija nunca puede ser más alta que la pantalla: `sticky` la
+        clava y lo que sobra queda inalcanzable —no scrollea con la página ni
+        por su cuenta—. Por eso el párrafo largo se mudó a la derecha, y por
+        las dudas la columna tiene su propio scroll (sin barra a la vista) para
+        pantallas bajas donde ni así entre.
+      */}
+      <header className="py-14 sm:py-20 lg:sticky lg:top-16 lg:max-h-[calc(100dvh-5rem)] lg:w-[22rem] lg:shrink-0 lg:overflow-y-auto lg:py-16 lg:sin-barra">
         <Revelar>
           <Image
             src={perfil.foto}
@@ -71,7 +78,8 @@ export default function Home() {
             {perfil.hero}
           </h1>
 
-          <p className="mt-6 max-w-xl leading-relaxed text-muted lg:text-[0.9375rem]">
+          {/* En escritorio este párrafo abre la columna derecha, no esta. */}
+          <p className="mt-6 max-w-xl leading-relaxed text-muted lg:hidden">
             {perfil.heroDetalle}
           </p>
 
@@ -109,7 +117,13 @@ export default function Home() {
         </Revelar>
       </header>
 
-      <div className="min-w-0 flex-1 lg:py-24">
+      <div className="min-w-0 flex-1 lg:py-16">
+        {/* La presentación abre la columna que scrollea. En mobile ya se leyó
+            arriba, junto a la foto. */}
+        <p className="mb-10 hidden max-w-2xl text-lg leading-relaxed text-muted lg:block">
+          {perfil.heroDetalle}
+        </p>
+
         {/* Numeros de impacto */}
         <ul className="grid grid-cols-2 gap-x-8 gap-y-7 border-y border-line py-7 sm:grid-cols-4 lg:mt-0">
           {numeros.map((n, i) => (

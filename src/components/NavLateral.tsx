@@ -14,7 +14,10 @@ import { useEffect, useState } from "react";
  * Solo aparece en escritorio: en mobile todo es una columna y el índice sobra.
  */
 
-const SECCIONES = [
+export type Seccion = { id: string; texto: string };
+
+/** Las de la home en español. /en pasa las suyas. */
+export const SECCIONES_ES: Seccion[] = [
   { id: "proyectos", texto: "Proyectos" },
   { id: "notas", texto: "Notas" },
   { id: "sobre-mi", texto: "Sobre mí" },
@@ -23,7 +26,12 @@ const SECCIONES = [
   { id: "formacion", texto: "Formación" },
 ];
 
-export function NavLateral() {
+export function NavLateral({
+  secciones = SECCIONES_ES,
+}: {
+  secciones?: Seccion[];
+}) {
+  const SECCIONES = secciones;
   const [activa, setActiva] = useState<string>(SECCIONES[0].id);
 
   useEffect(() => {
@@ -33,7 +41,9 @@ export function NavLateral() {
       (entradas) => {
         const visible = entradas
           .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+          .sort(
+            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top,
+          )[0];
         if (visible) setActiva(visible.target.id);
       },
       { rootMargin: "-20% 0px -70% 0px" },
@@ -45,7 +55,7 @@ export function NavLateral() {
     nodos.forEach((n) => observer.observe(n));
 
     return () => observer.disconnect();
-  }, []);
+  }, [SECCIONES]);
 
   return (
     <nav aria-label="Secciones" className="hidden lg:block">
