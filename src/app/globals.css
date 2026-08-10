@@ -1,22 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfbfa;
-  --foreground: #1c1c1a;
-  --muted: #6b6b66;
-  --line: #e2e1dd;
+  --background: #fbfbfd;
+  --foreground: #16151c;
+  --muted: #64626f;
+  --line: #e5e3ee;
   --surface: #ffffff;
-  --accent: #1c1c1a;
+
+  /* Acento: violeta -> azul. Es el hilo visual de todo el sitio. */
+  --acento: #6d4aff;
+  --acento-2: #2563eb;
+  --acento-suave: #f1edff;
+  --acento-texto: #5a35f0;
+}
+
+:root[data-tema="oscuro"] {
+  --background: #0b0a10;
+  --foreground: #ecebf2;
+  --muted: #9d9aab;
+  --line: #232130;
+  --surface: #141320;
+  --acento: #8b6dff;
+  --acento-2: #5b8cff;
+  --acento-suave: #1b1730;
+  --acento-texto: #b3a0ff;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0e0e0d;
-    --foreground: #ededea;
-    --muted: #9a9a94;
-    --line: #262624;
-    --surface: #161615;
-    --accent: #ededea;
+  :root:not([data-tema="claro"]) {
+    --background: #0b0a10;
+    --foreground: #ecebf2;
+    --muted: #9d9aab;
+    --line: #232130;
+    --surface: #141320;
+    --acento: #8b6dff;
+    --acento-2: #5b8cff;
+    --acento-suave: #1b1730;
+    --acento-texto: #b3a0ff;
   }
 }
 
@@ -26,6 +46,10 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-surface: var(--surface);
+  --color-acento: var(--acento);
+  --color-acento-2: var(--acento-2);
+  --color-acento-suave: var(--acento-suave);
+  --color-acento-texto: var(--acento-texto);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
@@ -36,14 +60,41 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* El foco tiene que verse: se navega con teclado. */
-:focus-visible {
-  outline: 2px solid var(--foreground);
-  outline-offset: 3px;
-  border-radius: 2px;
+.degradado-texto {
+  background-image: linear-gradient(100deg, var(--acento), var(--acento-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+/* Aparecer al entrar en pantalla. La clase "visible" la pone el observer. */
+.revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revelar.visible {
+  opacity: 1;
+  transform: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Si el sistema pide menos movimiento, se muestra todo quieto y ya. */
 @media (prefers-reduced-motion: reduce) {
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   *,
   *::before,
   *::after {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
+import { TemaToggle } from "@/components/TemaToggle";
 import { perfil } from "@/lib/content";
 import "./globals.css";
 
@@ -24,10 +25,10 @@ export const metadata: Metadata = {
     default: `${perfil.nombre} — ${perfil.titulo}`,
     template: `%s — ${perfil.nombre}`,
   },
-  description: perfil.presentacion,
+  description: perfil.heroDetalle,
   openGraph: {
     title: `${perfil.nombre} — ${perfil.titulo}`,
-    description: perfil.presentacion,
+    description: perfil.heroDetalle,
     url: SITIO,
     siteName: perfil.nombre,
     locale: "es_AR",
@@ -36,42 +37,58 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+/**
+ * Corre antes de pintar: si hay un tema guardado lo aplica al <html>.
+ * Sin esto, el sitio arranca con el tema del sistema y salta al elegido
+ * cuando hidrata React — un flash blanco molesto en modo oscuro.
+ */
+const SCRIPT_TEMA = `try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.tema=t}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body className={`${inter.variable} ${mono.variable} font-sans`}>
         <a
           href="#contenido"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
         >
           Ir al contenido
         </a>
 
         <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-6">
-          <header className="flex items-center justify-between py-8">
-            <Link
-              href="/"
-              className="font-mono text-sm tracking-tight hover:text-muted"
-            >
-              alejo di pietro
+          <header className="sticky top-0 z-40 -mx-6 flex items-center justify-between border-b border-line/60 bg-background/80 px-6 py-4 backdrop-blur">
+            <Link href="/" className="group flex items-center gap-2">
+              <span className="size-2.5 rounded-full bg-gradient-to-br from-acento to-acento-2 transition-transform group-hover:scale-125" />
+              <span className="font-mono text-sm">alejo di pietro</span>
             </Link>
-            <nav className="flex gap-5 text-sm text-muted">
-              <Link href="/#proyectos" className="hover:text-foreground">
+
+            <nav className="flex items-center gap-4 text-sm text-muted">
+              <Link
+                href="/#proyectos"
+                className="hidden transition-colors hover:text-foreground sm:block"
+              >
                 Proyectos
               </Link>
-              <Link href="/#experiencia" className="hover:text-foreground">
-                Experiencia
+              <Link
+                href="/#sobre-mi"
+                className="hidden transition-colors hover:text-foreground sm:block"
+              >
+                Sobre mí
               </Link>
               <a
                 href={perfil.github}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-foreground"
+                className="transition-colors hover:text-foreground"
               >
                 GitHub
               </a>
+              <TemaToggle />
             </nav>
           </header>
 
@@ -84,20 +101,20 @@ export default function RootLayout({
               {perfil.ubicacion} ·{" "}
               <a
                 href={`mailto:${perfil.email}`}
-                className="underline decoration-line underline-offset-4 hover:text-foreground"
+                className="underline decoration-line underline-offset-4 transition-colors hover:text-acento-texto"
               >
                 {perfil.email}
               </a>
             </p>
             <p className="mt-2 font-mono text-xs">
-              Hecho con Next.js y Tailwind.{" "}
+              Hecho con Next.js y Tailwind ·{" "}
               <a
                 href="https://github.com/AlejoDiPietro/AlejoDiPietro.github.io"
                 target="_blank"
                 rel="noreferrer"
-                className="underline decoration-line underline-offset-4 hover:text-foreground"
+                className="underline decoration-line underline-offset-4 transition-colors hover:text-acento-texto"
               >
-                Código del sitio
+                código del sitio
               </a>
             </p>
           </footer>
