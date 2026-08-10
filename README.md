@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# alejodipietro.github.io
 
-## Getting Started
+Mi sitio personal: presentación, experiencia y un case study del ERP que diseñé
+y llevé a producción.
 
-First, run the development server:
+**En vivo:** https://alejodipietro.github.io
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- **Next.js 16** (App Router) con export estático
+- **TypeScript**
+- **Tailwind CSS 4**
+- Sin dependencias de runtime más allá de React: el sitio se sirve como HTML
+  plano desde GitHub Pages.
+
+## Cómo está organizado
+
+```
+src/
+├── lib/content.ts          → todo el contenido (perfil, experiencia, stack)
+├── app/layout.tsx          → estructura, metadata y tipografías
+├── app/page.tsx            → home
+└── app/proyectos/sgc/      → case study
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El contenido vive separado de la maqueta a propósito: para actualizar un puesto
+o sumar un proyecto se edita `content.ts` y no hay que tocar los componentes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Desarrollo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev          # http://localhost:3000
+```
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run deploy
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Buildea, genera `out/` y lo publica en la rama `gh-pages`. El `.nojekyll` es
+necesario: sin él, GitHub Pages ignora las carpetas que empiezan con guion bajo
+y Next.js pone todos los assets en `_next/`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Decisiones
 
-## Deploy on Vercel
+**Export estático en lugar de servidor.** El sitio no tiene nada dinámico: no
+hay base de datos, ni autenticación, ni contenido que cambie por request.
+Renderizarlo en cada visita sería pagar un costo sin recibir nada a cambio.
+Como HTML estático se sirve desde CDN y no hay servidor que mantener.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**El tema sigue al sistema operativo.** Los colores se definen como variables
+CSS y `prefers-color-scheme` las reemplaza en modo oscuro. Sin JavaScript de
+por medio y sin el parpadeo de tema que aparece cuando se resuelve en el
+cliente.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Accesibilidad.** Enlace de salto al contenido, foco visible en la navegación
+por teclado, jerarquía real de encabezados y `prefers-reduced-motion`
+respetado.
