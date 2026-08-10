@@ -182,7 +182,7 @@ export default function SGC() {
           </a>{" "}
           está abierto, igual que{" "}
           <a
-            href="https://github.com/AlejoDiPietro/portfolio"
+            href="https://github.com/AlejoDiPietro/AlejoDiPietro.github.io"
             target="_blank"
             rel="noreferrer"
             className="underline decoration-line underline-offset-4 hover:text-foreground"

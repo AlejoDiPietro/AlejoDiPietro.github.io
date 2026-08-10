@@ -16,7 +16,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITIO = "https://alejodipietro.vercel.app";
+const SITIO = "https://alejodipietro.github.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
@@ -92,7 +92,7 @@ export default function RootLayout({
             <p className="mt-2 font-mono text-xs">
               Hecho con Next.js y Tailwind.{" "}
               <a
-                href="https://github.com/AlejoDiPietro/portfolio"
+                href="https://github.com/AlejoDiPietro/AlejoDiPietro.github.io"
                 target="_blank"
                 rel="noreferrer"
                 className="underline decoration-line underline-offset-4 hover:text-foreground"
