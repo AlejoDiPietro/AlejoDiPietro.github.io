@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Captura } from "@/components/Captura";
+import {
+  Aparte,
+  Bloque,
+  Codigo,
+  Datos,
+  H2,
+  P,
+  Titulo,
+  Volver,
+} from "@/components/Prosa";
 
 export const metadata: Metadata = {
   title: "SGC — el ERP que corre una empresa",
@@ -14,44 +24,26 @@ const numeros = [
   { valor: "3", etiqueta: "meses hasta producción" },
 ];
 
-function H2({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="mb-4 mt-12 text-xl font-semibold tracking-tight">
-      {children}
-    </h2>
-  );
-}
-
-function P({ children }: { children: React.ReactNode }) {
-  return <p className="mt-4 leading-relaxed">{children}</p>;
-}
-
 export default function SGC() {
   return (
     <article className="py-12">
-      <Link
-        href="/#proyectos"
-        className="font-mono text-xs text-muted hover:text-foreground"
+      <Volver href="/#proyectos" texto="proyectos" />
+
+      <Titulo
+        meta="Caso de estudio · 2026"
+        bajada="Sistema de gestión integral para Cambren SRL. Diseño, desarrollo y puesta en producción, de punta a punta y en solitario."
       >
-        ← volver
-      </Link>
-
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
         SGC — el ERP que corre una empresa
-      </h1>
-      <p className="mt-3 text-muted">
-        Sistema de gestión integral para Cambren SRL. Diseño, desarrollo y
-        puesta en producción.
-      </p>
+      </Titulo>
 
-      <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
-        {numeros.map((n) => (
-          <li key={n.etiqueta} className="bg-surface px-4 py-5">
-            <p className="font-mono text-2xl font-semibold">{n.valor}</p>
-            <p className="mt-1 text-xs leading-snug text-muted">{n.etiqueta}</p>
-          </li>
-        ))}
-      </ul>
+      <Datos items={numeros} />
+
+      <Captura
+        chrome
+        transicion="captura-sgc"
+        pendiente="Pantalla principal del SGC"
+        className="mt-12"
+      />
 
       <H2>El problema</H2>
       <P>
@@ -65,18 +57,24 @@ export default function SGC() {
 
       <H2>El enfoque</H2>
       <P>
-        Antes de escribir código relevé cómo trabajaba cada área. Venía de
-        haber trabajado en finanzas, tesorería y ventas dentro de la misma
-        empresa, así que conocía los procesos desde adentro: sabía qué parte de
-        una planilla era el proceso real y qué parte era un parche que alguien
-        había inventado para sobrevivir.
+        Antes de escribir código relevé cómo trabajaba cada área. Venía de haber
+        trabajado en finanzas, tesorería y ventas dentro de la misma empresa,
+        así que conocía los procesos desde adentro: sabía qué parte de una
+        planilla era el proceso real y qué parte era un parche que alguien había
+        inventado para sobrevivir.
       </P>
       <P>
-        De ahí salió un modelo relacional único de 121 entidades. La decisión
-        de fondo fue que hubiera <strong>una sola fuente de verdad</strong> por
+        De ahí salió un modelo relacional único de 121 entidades. La decisión de
+        fondo fue que hubiera <strong>una sola fuente de verdad</strong> por
         dato: si el precio de un producto cambia, cambia en un lugar y se
         refleja en presupuestos, ventas y reportes sin que nadie copie nada.
       </P>
+
+      <Captura
+        ratio="16 / 9"
+        pendiente="Diagrama del modelo de datos"
+        className="mt-9"
+      />
 
       <H2>Arquitectura</H2>
       <P>
@@ -87,7 +85,7 @@ export default function SGC() {
         backend, el frontend deja de compilar. Los errores de contrato se
         detectan al escribir, no en producción.
       </P>
-      <ul className="mt-4 space-y-2 leading-relaxed text-muted">
+      <ul className="mt-5 space-y-2.5 leading-relaxed text-muted">
         <li>
           <span className="font-medium text-foreground">Datos:</span> PostgreSQL
           con Prisma como ORM. Las migraciones son parte del repositorio.
@@ -117,14 +115,19 @@ export default function SGC() {
       </P>
       <P>
         Lo rehice con un catálogo de 114 permisos con la forma{" "}
-        <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm">
-          módulo.sección.acción
-        </code>{" "}
-        como única fuente de verdad. Cada permiso se aplica en dos lugares: en
-        el procedimiento del servidor —que es el que realmente protege— y en la
-        interfaz, para no mostrar botones que van a fallar. Los roles pasaron a
-        ser simples agrupaciones de permisos, no una jerarquía rígida.
+        <Codigo>módulo.sección.acción</Codigo> como única fuente de verdad. Cada
+        permiso se aplica en dos lugares: en el procedimiento del servidor —que
+        es el que realmente protege— y en la interfaz, para no mostrar botones
+        que van a fallar. Los roles pasaron a ser simples agrupaciones de
+        permisos, no una jerarquía rígida.
       </P>
+      <Aparte>
+        Lo conté largo en{" "}
+        <a href="/notas/permisos-no-roles" className="link-sutil text-foreground">
+          114 permisos en vez de 5 roles
+        </a>
+        .
+      </Aparte>
 
       <H2>Facturación electrónica con ARCA</H2>
       <P>
@@ -135,12 +138,17 @@ export default function SGC() {
       </P>
       <P>
         Modelé cada error posible como un tipo, en lugar de propagar el mensaje
-        crudo del servicio. El usuario final ve &laquo;el CUIT no figura en el
-        padrón de ARCA&raquo; y no un código numérico. La emisión quedó como una
-        operación que consulta el padrón, arma el comprobante, lo envía y
-        guarda el CAE con su vencimiento. La carga manual de facturas
-        desapareció.
+        crudo del servicio. El usuario final ve «el CUIT no figura en el padrón
+        de ARCA» y no un código numérico. La emisión quedó como una operación
+        que consulta el padrón, arma el comprobante, lo envía y guarda el CAE
+        con su vencimiento. La carga manual de facturas desapareció.
       </P>
+
+      <Captura
+        chrome
+        pendiente="Emisión de comprobante y CAE devuelto por ARCA"
+        className="mt-9"
+      />
 
       <H2>Testing donde importa</H2>
       <P>
@@ -164,19 +172,19 @@ export default function SGC() {
         pedirle un informe a alguien.
       </P>
 
-      <div className="mt-12 rounded-lg border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
+      <Bloque>
         <p>
           <strong className="font-medium text-foreground">
             Sobre el código:
           </strong>{" "}
           el SGC es un sistema privado de Cambren SRL, así que el repositorio no
-          es público. Lo que está acá es el diseño y las decisiones técnicas. Si
-          querés ver código mío, el{" "}
+          es público y las capturas van con datos de prueba. Lo que está acá es
+          el diseño y las decisiones técnicas. Si querés ver código mío, el{" "}
           <a
             href="https://github.com/AlejoDiPietro/gestion-proyectos"
             target="_blank"
             rel="noreferrer"
-            className="underline decoration-line underline-offset-4 hover:text-foreground"
+            className="link-sutil text-foreground"
           >
             proyecto de gestión con SOAP y Hibernate
           </a>{" "}
@@ -185,13 +193,13 @@ export default function SGC() {
             href="https://github.com/AlejoDiPietro/AlejoDiPietro.github.io"
             target="_blank"
             rel="noreferrer"
-            className="underline decoration-line underline-offset-4 hover:text-foreground"
+            className="link-sutil text-foreground"
           >
             el de este sitio
           </a>
           .
         </p>
-      </div>
+      </Bloque>
     </article>
   );
 }

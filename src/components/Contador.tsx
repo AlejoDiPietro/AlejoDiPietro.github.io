@@ -1,13 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+
+/**
+ * useLayoutEffect corre antes de que el navegador pinte, pero no existe en el
+ * render del servidor y React avisa si se lo llama ahi. Este alias elige el
+ * que corresponde segun donde este corriendo.
+ */
+const useEfectoPrevioAPintar =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /**
  * Cuenta de 0 al valor final cuando el número entra en pantalla.
  *
- * Usa requestAnimationFrame con una curva easeOut: un setInterval daría saltos
- * y no se adapta a la frecuencia de refresco de la pantalla.
- * Si el sistema pide menos movimiento, muestra el número final y no anima.
+ * Dos decisiones que no se ven:
+ *
+ * El HTML se genera con el número FINAL, no con cero. Así el valor correcto
+ * está en el documento para quien no tenga JavaScript y para cualquier cosa
+ * que lea la página sin ejecutarla. Recién antes de pintar, si se va a animar,
+ * se lo pone en cero — por eso useLayoutEffect y no useEffect: con este último
+ * se vería un cuadro con el número final antes del salto a cero.
+ *
+ * La animación escribe directo en el nodo en lugar de pasar por estado. Un
+ * setState por cuadro son sesenta renders por segundo por cada número de la
+ * página para algo que ni siquiera cambia el árbol: solo cambia un texto.
+ *
+ * Si el sistema pide menos movimiento, no anima y el número ya está bien.
  */
 export function Contador({
   valor,
@@ -21,20 +39,21 @@ export function Contador({
   duracion?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [actual, setActual] = useState(0);
+
+  const animable =
+    typeof window !== "undefined" &&
+    typeof IntersectionObserver !== "undefined" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEfectoPrevioAPintar(() => {
+    if (!animable) return;
+    const el = ref.current;
+    if (el) el.textContent = "0";
+  }, [animable]);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    const sinMovimiento = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (sinMovimiento || typeof IntersectionObserver === "undefined") {
-      setActual(valor);
-      return;
-    }
+    if (!el || !animable) return;
 
     let frame = 0;
 
@@ -47,7 +66,7 @@ export function Contador({
         const animar = (ahora: number) => {
           const t = Math.min((ahora - inicio) / duracion, 1);
           const suavizado = 1 - Math.pow(1 - t, 3);
-          setActual(Math.round(valor * suavizado));
+          el.textContent = String(Math.round(valor * suavizado));
           if (t < 1) frame = requestAnimationFrame(animar);
         };
         frame = requestAnimationFrame(animar);
@@ -61,12 +80,12 @@ export function Contador({
       observer.disconnect();
       cancelAnimationFrame(frame);
     };
-  }, [valor, duracion]);
+  }, [valor, duracion, animable]);
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span className="tabular-nums">
       {prefijo}
-      {actual}
+      <span ref={ref}>{valor}</span>
       {sufijo}
     </span>
   );

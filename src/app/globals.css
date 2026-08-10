@@ -1,20 +1,59 @@
 @import "tailwindcss";
 
-:root {
+/*
+ * El color se define en DOS ejes independientes, ambos como atributos del
+ * <html> que escribe el script de layout.tsx antes de pintar:
+ *
+ *   data-tema="claro|oscuro"          → claridad
+ *   data-paleta="cobre|violeta|…"     → familia de color
+ *
+ * Cada combinación define el mismo juego de variables. Los componentes nunca
+ * nombran un color: piden --acento y --foreground, y no se enteran de cuál es.
+ * Agregar una paleta es agregar dos bloques acá y una entrada en PALETAS
+ * (components/Paleta.tsx); no se toca ningún componente.
+ */
+
+/* ── Cobre: papel y tinta, acento cálido. Editorial. ─────────────────── */
+:root,
+:root[data-paleta="cobre"] {
+  --background: #fcfbf8;
+  --foreground: #191817;
+  --muted: #6b6862;
+  --line: #e6e2d9;
+  --surface: #ffffff;
+  --acento: #a8501c;
+  --acento-2: #b8791f;
+  --acento-texto: #97481a;
+  --acento-suave: #f6efe7;
+}
+
+:root[data-tema="oscuro"],
+:root[data-paleta="cobre"][data-tema="oscuro"] {
+  --background: #0c0c0b;
+  --foreground: #ebe9e4;
+  --muted: #918d85;
+  --line: #262523;
+  --surface: #141413;
+  --acento: #dd8f4f;
+  --acento-2: #e0b45f;
+  --acento-texto: #e5a26a;
+  --acento-suave: #1d1a16;
+}
+
+/* ── Violeta: la paleta original, con el acento mejor calibrado. ─────── */
+:root[data-paleta="violeta"] {
   --background: #fbfbfd;
   --foreground: #16151c;
   --muted: #64626f;
   --line: #e5e3ee;
   --surface: #ffffff;
-
-  /* Acento: violeta -> azul. Es el hilo visual de todo el sitio. */
   --acento: #6d4aff;
   --acento-2: #2563eb;
-  --acento-suave: #f1edff;
   --acento-texto: #5a35f0;
+  --acento-suave: #f1edff;
 }
 
-:root[data-tema="oscuro"] {
+:root[data-paleta="violeta"][data-tema="oscuro"] {
   --background: #0b0a10;
   --foreground: #ecebf2;
   --muted: #9d9aab;
@@ -22,21 +61,75 @@
   --surface: #141320;
   --acento: #8b6dff;
   --acento-2: #5b8cff;
-  --acento-suave: #1b1730;
   --acento-texto: #b3a0ff;
+  --acento-suave: #1b1730;
 }
 
+/* ── Índigo: azul profundo con acento cian. Serio, muy "producto". ───── */
+:root[data-paleta="indigo"] {
+  --background: #f6f9fc;
+  --foreground: #0d1b2a;
+  --muted: #55657a;
+  --line: #dde5ef;
+  --surface: #ffffff;
+  --acento: #0e7490;
+  --acento-2: #1d4ed8;
+  --acento-texto: #0c6a83;
+  --acento-suave: #e6f3f8;
+}
+
+:root[data-paleta="indigo"][data-tema="oscuro"] {
+  --background: #0a1120;
+  --foreground: #e2e8f4;
+  --muted: #8595ad;
+  --line: #1d2740;
+  --surface: #111a2e;
+  --acento: #38bdf8;
+  --acento-2: #818cf8;
+  --acento-texto: #67d3fb;
+  --acento-suave: #102338;
+}
+
+/* ── Verde: casi negro con acento esmeralda. El más "terminal". ──────── */
+:root[data-paleta="verde"] {
+  --background: #fafcfa;
+  --foreground: #14201a;
+  --muted: #5c6b63;
+  --line: #dfe8e2;
+  --surface: #ffffff;
+  --acento: #1a7a4f;
+  --acento-2: #0f766e;
+  --acento-texto: #176d47;
+  --acento-suave: #e8f4ee;
+}
+
+:root[data-paleta="verde"][data-tema="oscuro"] {
+  --background: #0a0f0c;
+  --foreground: #e6ece8;
+  --muted: #869187;
+  --line: #1e2822;
+  --surface: #101815;
+  --acento: #34d399;
+  --acento-2: #2dd4bf;
+  --acento-texto: #5ee0ae;
+  --acento-suave: #102019;
+}
+
+/*
+ * Sin JavaScript no hay atributos, así que el sitio cae en el bloque :root de
+ * arriba (cobre claro). Esto le devuelve el modo oscuro a ese caso.
+ */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-tema="claro"]) {
-    --background: #0b0a10;
-    --foreground: #ecebf2;
-    --muted: #9d9aab;
-    --line: #232130;
-    --surface: #141320;
-    --acento: #8b6dff;
-    --acento-2: #5b8cff;
-    --acento-suave: #1b1730;
-    --acento-texto: #b3a0ff;
+  :root:not([data-tema]) {
+    --background: #0c0c0b;
+    --foreground: #ebe9e4;
+    --muted: #918d85;
+    --line: #262523;
+    --surface: #141413;
+    --acento: #dd8f4f;
+    --acento-2: #e0b45f;
+    --acento-texto: #e5a26a;
+    --acento-suave: #1d1a16;
   }
 }
 
@@ -48,35 +141,74 @@
   --color-surface: var(--surface);
   --color-acento: var(--acento);
   --color-acento-2: var(--acento-2);
-  --color-acento-suave: var(--acento-suave);
   --color-acento-texto: var(--acento-texto);
+  --color-acento-suave: var(--acento-suave);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
-}
-
-.degradado-texto {
-  background-image: linear-gradient(100deg, var(--acento), var(--acento-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Aparecer al entrar en pantalla. La clase "visible" la pone el observer. */
-.revelar {
-  opacity: 0;
-  transform: translateY(18px);
+  text-rendering: optimizeLegibility;
+  /* Al cambiar de paleta, que no sea un corte seco. */
   transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color 0.35s ease,
+    color 0.35s ease;
 }
 
-.revelar.visible {
+/*
+ * La serif solo aparece donde hay voz editorial: el hero, los titulos de las
+ * notas y de los casos. La UI (tarjetas, botones, nav) se queda en sans.
+ * Mezclarlas sin regla es lo que hace que un sitio parezca plantilla.
+ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+/* Parrafos largos: evita la ultima linea huerfana de una sola palabra. */
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--acento);
+  color: var(--background);
+}
+
+/* Hairline con degradado del acento: la usan los títulos de sección. */
+.regla-acento {
+  background-image: linear-gradient(
+    to right,
+    var(--acento),
+    var(--acento-2) 30%,
+    var(--line) 75%
+  );
+}
+
+/*
+ * Aparecer al entrar en pantalla.
+ *
+ * El estado oculto cuelga de `.io`, que el script de layout.tsx pone en el
+ * <html> solo si existe IntersectionObserver. Sin JavaScript la regla nunca
+ * aplica y el contenido se ve: esconder por defecto y depender de JS para
+ * mostrar es como se termina con una pagina en blanco.
+ */
+.io .revelar {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.io .revelar.visible {
   opacity: 1;
   transform: none;
 }
@@ -84,12 +216,24 @@ body {
 :focus-visible {
   outline: 2px solid var(--acento);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
-/* Si el sistema pide menos movimiento, se muestra todo quieto y ya. */
+/* Subrayado que crece desde la izquierda al pasar por encima. */
+.link-sutil {
+  background-image: linear-gradient(var(--acento), var(--acento));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-sutil:hover {
+  background-size: 100% 1px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .revelar {
+  .io .revelar {
     opacity: 1;
     transform: none;
     transition: none;

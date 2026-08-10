@@ -1,34 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 type Tema = "claro" | "oscuro";
 
 /**
- * Alterna claro/oscuro y lo recuerda en localStorage.
+ * El tema no vive en estado de React: vive en el atributo `data-tema` del
+ * <html>, que el script de layout.tsx escribe antes del primer pintado.
  *
- * El estado arranca en null y el botón no se dibuja hasta montar: en el HTML
- * estático no se sabe qué tema eligió el visitante, y pintar el ícono
- * equivocado para corregirlo después produce un parpadeo visible.
- * El script de layout.tsx es el que evita el flash de fondo.
+ * Por eso esto es useSyncExternalStore y no un useState con un useEffect que
+ * lo sincronice: el atributo es la fuente de verdad y el componente solo lo
+ * lee. Alternar escribe el atributo, el MutationObserver avisa, y React
+ * redibuja el ícono. Un dato, un dueño.
  */
+
+function suscribir(avisar: () => void) {
+  const observer = new MutationObserver(avisar);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-tema"],
+  });
+  return () => observer.disconnect();
+}
+
+function leer(): Tema | null {
+  const t = document.documentElement.dataset.tema;
+  return t === "claro" || t === "oscuro" ? t : null;
+}
+
+/** En el HTML estático todavía no se sabe qué eligió el visitante. */
+function leerEnServidor(): Tema | null {
+  return null;
+}
+
 export function TemaToggle() {
-  const [tema, setTema] = useState<Tema | null>(null);
+  const tema = useSyncExternalStore(suscribir, leer, leerEnServidor);
 
-  useEffect(() => {
-    const guardado = localStorage.getItem("tema") as Tema | null;
-    const delSistema = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "oscuro"
-      : "claro";
-    setTema(guardado ?? delSistema);
-  }, []);
-
-  function alternar() {
-    const nuevo: Tema = tema === "oscuro" ? "claro" : "oscuro";
-    setTema(nuevo);
+  const alternar = useCallback(() => {
+    const nuevo: Tema = leer() === "oscuro" ? "claro" : "oscuro";
     document.documentElement.dataset.tema = nuevo;
-    localStorage.setItem("tema", nuevo);
-  }
+    try {
+      localStorage.setItem("tema", nuevo);
+    } catch {
+      // Modo incógnito con almacenamiento bloqueado: el tema igual cambia,
+      // solo que no se recuerda para la próxima visita.
+    }
+  }, []);
 
   return (
     <button
@@ -38,6 +55,7 @@ export function TemaToggle() {
       }
       className="grid size-9 place-items-center rounded-full border border-line text-muted transition-colors hover:border-acento hover:text-acento-texto"
     >
+      {/* Hasta que hidrata no se sabe el tema: se reserva el lugar y ya. */}
       {tema === null ? (
         <span className="size-4" />
       ) : tema === "oscuro" ? (
