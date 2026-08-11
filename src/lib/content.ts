@@ -25,7 +25,7 @@ export const perfil = {
 
 /**
  * Numeros de impacto, no de volumen.
- * "121 entidades modeladas" mide cuanto escribi; estos miden que cambio.
+ * "127 entidades modeladas" mide cuanto escribi; estos miden que cambio.
  */
 export const numeros = [
   { valor: 3, sufijo: " meses", etiqueta: "de cero a producción" },
@@ -58,7 +58,7 @@ export const proyectos: Proyecto[] = [
     nombre: "SGC — el ERP que corre una empresa",
     periodo: "2026",
     resumen:
-      "Seis módulos sobre un modelo de 121 entidades: gestión, comercial y finanzas en un solo lugar, con facturación electrónica ante ARCA y control de acceso de 114 permisos. Lo diseñé, lo construí y lo puse en producción en 3 meses.",
+      "Seis módulos sobre un modelo de 127 entidades: gestión, comercial y finanzas en un solo lugar, con facturación electrónica ante ARCA y control de acceso de 106 permisos. Lo diseñé, lo construí y lo puse en producción en 3 meses.",
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL"],
     href: "/proyectos/sgc",
     destacado: true,
@@ -130,7 +130,7 @@ export type Nota = {
 export const notas: Nota[] = [
   {
     slug: "permisos-no-roles",
-    titulo: "114 permisos en vez de 5 roles",
+    titulo: "106 permisos en vez de 5 roles",
     fecha: "2026-08-10",
     fechaTexto: "10 de agosto de 2026",
     resumen:

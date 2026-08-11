@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 const numeros = [
   { valor: "6", etiqueta: "módulos" },
-  { valor: "121", etiqueta: "entidades de datos" },
-  { valor: "114", etiqueta: "permisos granulares" },
+  { valor: "127", etiqueta: "entidades de datos" },
+  { valor: "106", etiqueta: "permisos granulares" },
   { valor: "3", etiqueta: "meses hasta producción" },
 ];
 
@@ -64,7 +64,7 @@ export default function SGC() {
         inventado para sobrevivir.
       </P>
       <P>
-        De ahí salió un modelo relacional único de 121 entidades. La decisión de
+        De ahí salió un modelo relacional único de 127 entidades. La decisión de
         fondo fue que hubiera <strong>una sola fuente de verdad</strong> por
         dato: si el precio de un producto cambia, cambia en un lugar y se
         refleja en presupuestos, ventas y reportes sin que nadie copie nada.
@@ -106,7 +106,7 @@ export default function SGC() {
         </li>
       </ul>
 
-      <H2>Permisos: 114 razones para no usar roles sueltos</H2>
+      <H2>Permisos: 106 razones para no usar roles sueltos</H2>
       <P>
         El primer diseño tenía roles simples —admin, comercial, finanzas— y se
         rompió apenas apareció el primer caso real: la cajera necesitaba ver
@@ -114,7 +114,7 @@ export default function SGC() {
         stock sin tocar la facturación. Los roles no alcanzaban.
       </P>
       <P>
-        Lo rehice con un catálogo de 114 permisos con la forma{" "}
+        Lo rehice con un catálogo de 106 permisos con la forma{" "}
         <Codigo>módulo.sección.acción</Codigo> como única fuente de verdad. Cada
         permiso se aplica en dos lugares: en el procedimiento del servidor —que
         es el que realmente protege— y en la interfaz, para no mostrar botones
@@ -124,7 +124,7 @@ export default function SGC() {
       <Aparte>
         Lo conté largo en{" "}
         <a href="/notas/permisos-no-roles" className="link-sutil text-foreground">
-          114 permisos en vez de 5 roles
+          106 permisos en vez de 5 roles
         </a>
         .
       </Aparte>

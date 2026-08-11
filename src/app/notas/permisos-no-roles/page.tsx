@@ -68,7 +68,7 @@ export default function PermisosNoRoles() {
         <Codigo>finanzas.facturas.editar</Codigo>.
       </P>
       <P>
-        Terminaron siendo 114. Suena a mucho hasta que se ve de dónde salen: no
+        Terminaron siendo 106. Suena a mucho hasta que se ve de dónde salen: no
         los inventé de arriba hacia abajo, salieron de recorrer el sistema
         pantalla por pantalla y anotar cada cosa que un usuario puede hacer. Si
         una acción existe en la interfaz, tiene su permiso. Ese catálogo es la
@@ -77,10 +77,10 @@ export default function PermisosNoRoles() {
       </P>
       <P>
         Los roles no desaparecieron, pero cambiaron de naturaleza: pasaron a ser
-        etiquetas que agrupan permisos, no una jerarquía. &laquo;Cajera&raquo; es
-        un nombre para un conjunto. Si mañana la cajera necesita ver costos, se
-        le agrega un permiso y no se toca una línea de código. Antes eso era un
-        deploy.
+        etiquetas que agrupan permisos, no una jerarquía. &laquo;Comercial&raquo;
+        es un nombre para un conjunto. Si mañana una vendedora necesita ver los
+        saldos deudores, se le agrega ese permiso y no se toca una línea de
+        código. Antes eso era un deploy.
       </P>
 
       <H2>El permiso que no era una capacidad</H2>
@@ -145,10 +145,10 @@ export default function PermisosNoRoles() {
         no va a atrapar— aplicada al control de acceso.
       </P>
       <P>
-        Lo otro que subestimé fue la administración. Con 114 permisos hace falta
+        Lo otro que subestimé fue la administración. Con 106 permisos hace falta
         una pantalla decente para asignarlos, agrupada por módulo y con los
         conjuntos armados de antemano. Un checkbox por permiso en una lista
-        plana de 114 filas es inusable, y si la herramienta es inusable el
+        plana de 106 filas es inusable, y si la herramienta es inusable el
         sistema termina con todo el mundo en admin, que es exactamente el
         problema que se quería evitar.
       </P>
