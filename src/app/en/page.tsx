@@ -27,7 +27,7 @@ const work = [
     nombre: "SGC — the ERP that runs a company",
     periodo: "2026",
     resumen:
-      "Six modules over a 121-entity relational model: operations, sales and finance in one place, with electronic invoicing against the Argentine tax authority and a 114-permission access control layer. I designed it, built it and shipped it in three months, on my own.",
+      "Six modules over a 127-entity relational model: operations, sales and finance in one place, with electronic invoicing against the Argentine tax authority and a 106-permission access control layer. I designed it, built it and shipped it in three months, on my own.",
     stack: "Next.js · TypeScript · tRPC · Prisma · PostgreSQL",
     href: "/proyectos/sgc",
   },
