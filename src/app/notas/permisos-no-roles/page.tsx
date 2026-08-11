@@ -31,20 +31,22 @@ export default function PermisosNoRoles() {
 
       <H2>El caso que lo rompió</H2>
       <P>
-        La cajera necesitaba ver los precios de venta para cobrar. No podía ver
-        los costos, porque el costo de compra es información sensible y no es
-        parte de su trabajo. Con roles, eso no se puede expresar: o es
-        &laquo;comercial&raquo; y ve todo el módulo, o no lo es y no ve nada.
+        Las vendedoras necesitaban el módulo comercial entero para trabajar:
+        clientes, presupuestos, remitos, ventas. Todo menos una cosa, los saldos
+        deudores. Quién debe cuánto es información que en esa empresa mira el
+        dueño, no el mostrador. Con roles eso no se puede expresar: o sos
+        &laquo;comercial&raquo; y ves todo el módulo, o no lo sos y no ves nada.
       </P>
       <P>
-        El segundo caso llegó al día siguiente. El encargado de depósito tenía
-        que mover stock entre depósitos, que vive dentro del módulo comercial,
-        pero no debía tocar facturación, que vive en el mismo módulo. Otra vez:
-        el rol es demasiado grueso para la pregunta que le estoy haciendo.
+        El segundo caso es el mismo problema una capa más abajo. Mover stock
+        entre depósitos y ajustar el stock a mano son dos cosas distintas: la
+        primera es operativa y la hace el depósito todos los días, la segunda
+        corrige la realidad y deja a la contabilidad mintiendo si se usa mal.
+        Las dos viven en la misma pantalla. Un rol no puede separarlas.
       </P>
       <P>
         El reflejo automático es inventar roles nuevos. &laquo;Cajera&raquo;.
-        &laquo;Depósito&raquo;. &laquo;Comercial sin costos&raquo;. Es la
+        &laquo;Depósito&raquo;. &laquo;Comercial sin deudores&raquo;. Es la
         trampa: cada excepción del negocio agrega un rol, los roles empiezan a
         solaparse, y a los seis meses hay veinte roles que nadie puede explicar
         y que se copian entre sí a mano cuando entra alguien nuevo.
@@ -61,9 +63,9 @@ export default function PermisosNoRoles() {
         Lo rehice al revés. La unidad mínima dejó de ser el rol y pasó a ser el
         permiso: una acción concreta sobre una parte concreta del sistema, con
         la forma <Codigo>módulo.sección.acción</Codigo>. Por ejemplo{" "}
-        <Codigo>comercial.productos.ver_costo</Codigo>,{" "}
-        <Codigo>comercial.stock.mover</Codigo>,{" "}
-        <Codigo>finanzas.facturas.emitir</Codigo>.
+        <Codigo>comercial.stock.transferir</Codigo>,{" "}
+        <Codigo>comercial.deudores.ver</Codigo>,{" "}
+        <Codigo>finanzas.facturas.editar</Codigo>.
       </P>
       <P>
         Terminaron siendo 114. Suena a mucho hasta que se ve de dónde salen: no
@@ -79,6 +81,36 @@ export default function PermisosNoRoles() {
         un nombre para un conjunto. Si mañana la cajera necesita ver costos, se
         le agrega un permiso y no se toca una línea de código. Antes eso era un
         deploy.
+      </P>
+
+      <H2>El permiso que no era una capacidad</H2>
+      <P>
+        El caso que más me hizo pensar apareció después, y no lo vi venir. En
+        una sucursal hay una PC fija en el mostrador que comparten dos
+        vendedoras. Esa máquina no tiene dueño: si quedaba logueada con la
+        cuenta de una, todas las ventas de la otra se le atribuían a ella. Y de
+        esa atribución sale la comisión que cada una cobra a fin de mes.
+      </P>
+      <P>
+        La solución fue un usuario propio de la terminal y un permiso que hace
+        que el presupuestador pregunte quién cerró la venta. Hasta ahí, bien. El
+        problema fue dónde terminó ese permiso: el rol comercial se armaba
+        barriendo <em>todos</em> los permisos del módulo, así que se lo llevó
+        puesto. Resultado: a las vendedoras entrando con su propio usuario el
+        sistema les preguntaba quién había vendido — que es exactamente lo que
+        no hay que preguntarle a alguien que ya se identificó.
+      </P>
+      <Aparte>
+        Ese permiso no describe lo que la persona puede hacer. Describe la
+        máquina desde la que entra. Es una propiedad del contexto disfrazada de
+        capacidad, y por eso ningún barrido automático la iba a ubicar bien.
+      </Aparte>
+      <P>
+        La lección no fue sobre permisos sino sobre los atajos para asignarlos.
+        Un &laquo;todos los del módulo menos estos tres&raquo; es cómodo y es
+        justo donde se cuelan las cosas que no encajan en la categoría. Hoy esas
+        tres exclusiones están escritas con el motivo al lado, porque dentro de
+        un año la lista sin explicación es indistinguible de un error.
       </P>
 
       <H2>Dónde se aplica, y por qué en dos lados</H2>

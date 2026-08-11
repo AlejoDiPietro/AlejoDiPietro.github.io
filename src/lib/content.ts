@@ -134,8 +134,8 @@ export const notas: Nota[] = [
     fecha: "2026-08-10",
     fechaTexto: "10 de agosto de 2026",
     resumen:
-      "Diseñé el control de acceso del ERP con roles simples y se rompió con el primer caso real: la cajera necesitaba ver precios pero no costos. Por qué lo rehice con permisos granulares y qué aprendí del cambio.",
-    minutos: 6,
+      "Diseñé el control de acceso del ERP con cinco roles y se rompió con el primer caso real: el mostrador necesitaba todo el módulo comercial menos los saldos deudores. Por qué lo rehice con permisos granulares, y el permiso que resultó no describir a una persona sino a una máquina.",
+    minutos: 7,
   },
 ];
 
