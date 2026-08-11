@@ -41,7 +41,8 @@ export default function SGC() {
       <Captura
         chrome
         transicion="captura-sgc"
-        pendiente="Pantalla principal del SGC"
+        src="/capturas/sgc-home.png"
+        alt="Pantalla principal del SGC: indicadores de empleados activos, producción del período y adelantos pendientes, producción por tejedor, resumen comercial y de finanzas, y proyección de pagos."
         className="mt-12"
       />
 
@@ -146,7 +147,8 @@ export default function SGC() {
 
       <Captura
         chrome
-        pendiente="Emisión de comprobante y CAE devuelto por ARCA"
+        src="/capturas/sgc-facturas.png"
+        alt="Listado de comprobantes fiscales emitidos: número, tipo, fecha, cliente con CUIT, neto, IVA, total y CAE, con los totales de facturado e IVA arriba."
         className="mt-9"
       />
 

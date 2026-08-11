@@ -62,7 +62,9 @@ export const proyectos: Proyecto[] = [
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL"],
     href: "/proyectos/sgc",
     destacado: true,
-    capturaPendiente: "Pantalla principal del SGC",
+    captura: "/capturas/sgc-home.png",
+    capturaAlt:
+      "Pantalla principal del SGC con los indicadores del mes, producción por tejedor y resumen comercial y de finanzas.",
   },
   {
     slug: "web-publica",

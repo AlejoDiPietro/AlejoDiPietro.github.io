@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Captura } from "@/components/Captura";
 import { Aparte, Codigo, H2, P, Titulo, Volver } from "@/components/Prosa";
 import { notas } from "@/lib/content";
 
@@ -75,6 +76,18 @@ export default function PermisosNoRoles() {
         única fuente de verdad; no hay permisos implícitos ni casos especiales
         escondidos en un <Codigo>if</Codigo>.
       </P>
+
+      <Captura
+        chrome
+        src="/capturas/sgc-roles.png"
+        alt="Pantalla de roles y permisos del sistema. Cada rol muestra cuántos permisos del catálogo tiene asignados: Caja Chica 5 de 106, Caja Grande 20, Comercial 34, Lectura 46, Operaciones 28."
+        className="mt-9"
+      />
+      <p className="mt-3 text-sm leading-relaxed text-muted">
+        La pantalla de administración. Cada rol es un subconjunto del catálogo,
+        y se ve de un vistazo cuánto abarca: la de lectura toca 46 permisos y la
+        de caja chica operativa, 2.
+      </p>
       <P>
         Los roles no desaparecieron, pero cambiaron de naturaleza: pasaron a ser
         etiquetas que agrupan permisos, no una jerarquía. &laquo;Comercial&raquo;
