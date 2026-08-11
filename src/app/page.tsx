@@ -1,9 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ActividadGithub } from "@/components/ActividadGithub";
 import { Contador } from "@/components/Contador";
+import { NavLateral } from "@/components/NavLateral";
 import { Proyectos } from "@/components/Proyectos";
 import { Revelar } from "@/components/Revelar";
 import {
   experiencia,
+  formacion,
+  notas,
   numeros,
   perfil,
   sobreMi,
@@ -20,11 +25,11 @@ function Seccion({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-20 py-14">
+    <section id={id} className="scroll-mt-20 py-12">
       <Revelar>
-        <h2 className="mb-8 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-          <span className="h-px w-6 bg-gradient-to-r from-acento to-acento-2" />
+        <h2 className="mb-7 flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.18em] text-acento-texto">
           {titulo}
+          <span aria-hidden="true" className="regla-acento h-px flex-1" />
         </h2>
       </Revelar>
       {children}
@@ -34,175 +39,232 @@ function Seccion({
 
 export default function Home() {
   return (
-    <>
-      {/* Hero */}
-      <section className="relative py-14 sm:py-20">
-        {/* Resplandor de fondo. aria-hidden: es decoración pura. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-acento/20 to-acento-2/20 blur-3xl"
-        />
+    /*
+      Dos columnas en escritorio: la izquierda queda fija y la derecha
+      scrollea. Además de aprovechar el ancho de una pantalla de PC, resuelve
+      lo de la foto: sola en una columna angosta, rodeada de nombre, titular y
+      links, deja de flotar en el vacío y se lee del tamaño que realmente es.
 
+      Debajo de lg todo vuelve a ser una sola columna apilada.
+    */
+    <div className="lg:flex lg:gap-16 xl:gap-24">
+      {/*
+        La columna fija nunca puede ser más alta que la pantalla: `sticky` la
+        clava y lo que sobra queda inalcanzable —no scrollea con la página ni
+        por su cuenta—. Por eso el párrafo largo se mudó a la derecha, y por
+        las dudas la columna tiene su propio scroll (sin barra a la vista) para
+        pantallas bajas donde ni así entre.
+      */}
+      <header className="py-14 sm:py-20 lg:sticky lg:top-16 lg:max-h-[calc(100dvh-5rem)] lg:w-[22rem] lg:shrink-0 lg:overflow-y-auto lg:py-16 lg:sin-barra">
         <Revelar>
-          <div className="flex flex-col-reverse items-start gap-8 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-mono text-sm text-acento-texto">
-                {perfil.saludo}
-              </p>
-              <h1 className="mt-3 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
-                <span className="degradado-texto">{perfil.hero}</span>
-              </h1>
-            </div>
+          <Image
+            src={perfil.foto}
+            alt={`Foto de ${perfil.nombre}`}
+            width={352}
+            height={352}
+            priority
+            className="size-32 rounded-full object-cover ring-1 ring-line sm:size-40"
+          />
 
-            <Image
-              src={perfil.foto}
-              alt=""
-              width={112}
-              height={112}
-              priority
-              className="size-24 shrink-0 rounded-2xl object-cover ring-1 ring-line sm:size-28"
-            />
-          </div>
+          {/* Dos renglones y no uno: en una columna angosta, "ALEJO DI PIETRO ·
+              BUENOS AIRES, ARGENTINA" se parte por la mitad de la ciudad. */}
+          <p className="mt-8 font-mono text-xs uppercase tracking-[0.16em] text-acento-texto">
+            {perfil.saludo}
+          </p>
+          <p className="mt-1.5 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+            {perfil.ubicacion}
+          </p>
+          <h1 className="display mt-5 text-[2.75rem] sm:text-5xl">
+            {perfil.hero}
+          </h1>
 
-          <p className="mt-6 max-w-2xl leading-relaxed text-muted">
+          {/* En escritorio este párrafo abre la columna derecha, no esta. */}
+          <p className="mt-6 max-w-xl leading-relaxed text-muted lg:hidden">
             {perfil.heroDetalle}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <a
               href={`mailto:${perfil.email}`}
-              className="rounded-full bg-gradient-to-r from-acento to-acento-2 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="rounded-full bg-acento px-5 py-2.5 font-medium text-background transition-opacity hover:opacity-85"
             >
               Escribime
-            </a>
-            <a
-              href={perfil.cv}
-              className="rounded-full border border-line px-5 py-2.5 text-sm transition-colors hover:border-acento hover:text-acento-texto"
-            >
-              Descargar CV
-            </a>
-            <a
-              href={perfil.cvIngles}
-              className="rounded-full border border-line px-5 py-2.5 text-sm transition-colors hover:border-acento hover:text-acento-texto"
-            >
-              Resume (EN)
             </a>
             <a
               href={perfil.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-muted underline decoration-line underline-offset-4 transition-colors hover:text-acento-texto"
+              className="link-sutil"
             >
               LinkedIn
             </a>
           </div>
+
+          {/* Los CV van aparte y en mono: son descargas, no navegación. */}
+          <p className="mt-5 font-mono text-xs text-muted">
+            <a href={perfil.cv} className="link-sutil">
+              CV (ES)
+            </a>
+            {" · "}
+            <a href={perfil.cvIngles} className="link-sutil">
+              Resume (EN)
+            </a>
+          </p>
+
+          <div className="mt-12">
+            <NavLateral />
+          </div>
         </Revelar>
-      </section>
+      </header>
 
-      {/* Números */}
-      <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
-        {numeros.map((n, i) => (
-          <li key={n.etiqueta} className="bg-surface px-5 py-6">
-            <Revelar delay={i * 80}>
-              <p className="degradado-texto font-mono text-3xl font-bold">
-                <Contador
-                  valor={n.valor}
-                  prefijo={"prefijo" in n ? n.prefijo : ""}
-                  sufijo={n.sufijo}
-                />
-              </p>
-              <p className="mt-2 text-xs leading-snug text-muted">
-                {n.etiqueta}
-              </p>
-            </Revelar>
-          </li>
-        ))}
-      </ul>
+      <div className="min-w-0 flex-1 lg:py-16">
+        {/* La presentación abre la columna que scrollea. En mobile ya se leyó
+            arriba, junto a la foto. */}
+        <p className="mb-10 hidden max-w-2xl text-lg leading-relaxed text-muted lg:block">
+          {perfil.heroDetalle}
+        </p>
 
-      <Seccion id="proyectos" titulo="Proyectos">
-        <Proyectos />
-      </Seccion>
-
-      <Seccion id="sobre-mi" titulo="Sobre mí">
-        <div className="space-y-4">
-          {sobreMi.map((parrafo, i) => (
-            <Revelar key={i} delay={i * 90}>
-              <p className="leading-relaxed">{parrafo}</p>
-            </Revelar>
-          ))}
-        </div>
-      </Seccion>
-
-      <Seccion id="stack" titulo="Stack">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {stack.map((g, i) => (
-            <Revelar key={g.area} delay={i * 70}>
-              <div className="h-full rounded-2xl border border-line bg-surface p-5">
-                <h3 className="font-mono text-xs uppercase tracking-wider text-acento-texto">
-                  {g.area}
-                </h3>
-                <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {g.items.map((t) => (
-                    <li
-                      key={t}
-                      className="rounded-lg border border-line px-2.5 py-1 text-sm text-muted"
-                    >
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Revelar>
-          ))}
-        </div>
-      </Seccion>
-
-      <Seccion id="experiencia" titulo="Experiencia">
-        <ol className="relative space-y-8 border-l border-line pl-6">
-          {experiencia.map((e, i) => (
-            <li key={`${e.puesto}-${e.periodo}`}>
+        {/* Numeros de impacto */}
+        <ul className="grid grid-cols-2 gap-x-8 gap-y-7 border-y border-line py-7 sm:grid-cols-4 lg:mt-0">
+          {numeros.map((n, i) => (
+            <li key={n.etiqueta}>
               <Revelar delay={i * 70}>
-                <span
-                  aria-hidden="true"
-                  className="absolute -left-[5px] mt-1.5 size-2.5 rounded-full bg-gradient-to-br from-acento to-acento-2"
-                />
-                <h3 className="font-medium">{e.puesto}</h3>
-                <p className="mt-1 font-mono text-xs text-muted">
-                  {e.empresa} · {e.periodo}
+                <p className="font-mono text-2xl leading-none text-acento-texto">
+                  <Contador
+                    valor={n.valor}
+                    prefijo={"prefijo" in n ? n.prefijo : ""}
+                    sufijo={n.sufijo}
+                  />
                 </p>
-                <p className="mt-2 leading-relaxed text-muted">
-                  {e.descripcion}
+                <p className="mt-2.5 text-xs leading-snug text-muted">
+                  {n.etiqueta}
                 </p>
               </Revelar>
             </li>
           ))}
-        </ol>
-      </Seccion>
+        </ul>
 
-      <Seccion id="formacion" titulo="Formación">
-        <Revelar>
-          <div className="space-y-3">
-            <p className="leading-relaxed">
-              <strong className="font-medium">Analista de Sistemas</strong>{" "}
-              <span className="text-muted">
-                — Universidad del Salvador (2023–2026, graduado)
-              </span>
-            </p>
-            <p className="leading-relaxed">
-              <strong className="font-medium">
-                Ingeniería en Informática
-              </strong>{" "}
-              <span className="text-muted">
-                — Universidad del Salvador (2023–2027, en curso)
-              </span>
-            </p>
-            <p className="leading-relaxed text-muted">
-              Certificado Profesional de Ciberseguridad — Google · Inglés
-              avanzado
-            </p>
+        <ActividadGithub />
+
+        <Seccion id="proyectos" titulo="Proyectos">
+          <Proyectos />
+        </Seccion>
+
+        <Seccion id="notas" titulo="Notas">
+          <ul className="divide-y divide-line border-y border-line">
+            {notas.map((n, i) => (
+              <li key={n.slug}>
+                <Revelar delay={i * 70}>
+                  <Link
+                    href={`/notas/${n.slug}`}
+                    className="group block py-5 transition-opacity hover:opacity-90"
+                  >
+                    <div className="flex items-baseline justify-between gap-4">
+                      <h3 className="font-medium">
+                        {n.titulo}
+                        <span
+                          aria-hidden="true"
+                          className="ml-1.5 inline-block text-acento-texto opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+                        >
+                          →
+                        </span>
+                      </h3>
+                      <span className="shrink-0 font-mono text-[11px] text-muted">
+                        {n.minutos} min
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {n.resumen}
+                    </p>
+                  </Link>
+                </Revelar>
+              </li>
+            ))}
+          </ul>
+        </Seccion>
+
+        <Seccion id="sobre-mi" titulo="Sobre mí">
+          <div className="space-y-4">
+            {sobreMi.map((parrafo, i) => (
+              <Revelar key={i} delay={i * 80}>
+                <p className="leading-relaxed">{parrafo}</p>
+              </Revelar>
+            ))}
           </div>
-        </Revelar>
-      </Seccion>
-    </>
+        </Seccion>
+
+        <Seccion id="stack" titulo="Stack">
+          <dl className="space-y-5">
+            {stack.map((g, i) => (
+              <Revelar key={g.area} delay={i * 60}>
+                <div className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <dt className="font-mono text-xs uppercase tracking-wider text-muted sm:pt-0.5">
+                    {g.area}
+                  </dt>
+                  <dd className="text-sm leading-relaxed">
+                    {g.items.join(" · ")}
+                  </dd>
+                </div>
+              </Revelar>
+            ))}
+          </dl>
+        </Seccion>
+
+        <Seccion id="experiencia" titulo="Experiencia">
+          {experiencia.map((e) => (
+            <div key={e.empresa}>
+              <Revelar>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="text-lg font-medium">{e.empresa}</h3>
+                  <span className="font-mono text-[11px] text-muted">
+                    {e.periodo}
+                  </span>
+                </div>
+              </Revelar>
+
+              {/* La línea vertical es la progresión: se entra abajo y se sube. */}
+              <ol className="mt-6 space-y-7 border-l border-line pl-6">
+                {e.puestos.map((p, i) => (
+                  <li key={p.periodo} className="relative">
+                    <Revelar delay={i * 60}>
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -left-[calc(1.5rem+4px)] top-1.5 size-[7px] rounded-full ${
+                          i === 0 ? "bg-acento" : "bg-line"
+                        }`}
+                      />
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <h4 className="font-medium">{p.puesto}</h4>
+                        <span className="font-mono text-[11px] text-muted">
+                          {p.periodo}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">
+                        {p.descripcion}
+                      </p>
+                    </Revelar>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </Seccion>
+
+        <Seccion id="formacion" titulo="Formación">
+          <ul className="space-y-4">
+            {formacion.map((f, i) => (
+              <li key={f.titulo}>
+                <Revelar delay={i * 60}>
+                  <p className="font-medium">{f.titulo}</p>
+                  <p className="mt-1 font-mono text-xs text-muted">
+                    {f.detalle}
+                  </p>
+                </Revelar>
+              </li>
+            ))}
+          </ul>
+        </Seccion>
+      </div>
+    </div>
   );
 }

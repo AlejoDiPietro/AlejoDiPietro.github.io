@@ -25,11 +25,9 @@ export function Revelar({
     const el = ref.current;
     if (!el) return;
 
-    // Sin soporte, mostrar directamente en lugar de dejarlo invisible.
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    // Sin soporte no hay nada que hacer: la clase `.io` del <html> nunca se
+    // puso, asi que el CSS que esconde a `.revelar` tampoco aplica.
+    if (typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
       ([entrada]) => {
