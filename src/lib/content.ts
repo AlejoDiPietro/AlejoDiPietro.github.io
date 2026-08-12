@@ -82,13 +82,15 @@ export const proyectos: Proyecto[] = [
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
     href: "https://github.com/AlejoDiPietro/cotizador-cercos",
     repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
-    captura: "/capturas/cotizador.png",
-    // La medida real del archivo. La captura es el ancho completo del navegador:
-    // forzarla a 16/10 recortaria justo el dibujo del cerco, que es lo que hay
-    // que ver.
-    capturaRatio: "1568 / 668",
+    captura: "/capturas/cotizador.webp",
+    capturaChrome: false,
+    // La medida del archivo. Se le recortó la franja de badges de tecnologías,
+    // que decía JavaScript/HTML5/CSS3/LocalStorage: ese es el stack de Aetheria,
+    // no de este proyecto, y en una app full-stack leído así la hace parecer un
+    // juguete.
+    capturaRatio: "1536 / 930",
     capturaAlt:
-      "Pantalla del cotizador: arriba, el cerco dibujado a escala con los postes, los hilos de tensión y el portón; abajo a la izquierda el formulario con los tramos y el tejido, y a la derecha el total con IVA sobre fondo oscuro.",
+      "Pieza de presentación del Cotizador de cercos: a la izquierda el título y las cuatro cosas que hace; a la derecha una pantalla de la app con el cerco dibujado a escala, el formulario de tramos y el total con IVA de $4.183.744.",
   },
   {
     slug: "aetheria",
