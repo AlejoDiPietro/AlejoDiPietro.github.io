@@ -67,6 +67,19 @@ export const proyectos: Proyecto[] = [
       "Pantalla principal del SGC con los indicadores del mes, producción por tejedor y resumen comercial y de finanzas.",
   },
   {
+    slug: "aetheria",
+    nombre: "Aetheria Online — un RPG 3D en el navegador",
+    periodo: "2026",
+    resumen:
+      "Action RPG con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework. Es lo único de esta lista que podés abrir y jugar ahora mismo.",
+    stack: ["Three.js", "JavaScript", "WebGL"],
+    href: "https://alejodipietro.github.io/aetheria/",
+    repo: "https://github.com/AlejoDiPietro/aetheria",
+    captura: "/capturas/aetheria.jpg",
+    capturaAlt:
+      "El personaje frente al puesto del Mercader Aoi en la Pradera de Sakura, con el HUD de vida, maná y habilidades, y enemigos a lo lejos.",
+  },
+  {
     slug: "web-publica",
     nombre: "Migración de una web pública a Next.js",
     periodo: "2026",
