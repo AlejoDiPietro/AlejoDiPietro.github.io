@@ -50,6 +50,13 @@ export type Proyecto = {
   captura?: string;
   capturaAlt?: string;
   capturaPendiente?: string;
+  /**
+   * El cromo de ventana dice "esto es una pantalla del producto". Una pieza
+   * diseñada no es una pantalla, asi que se apaga y el marco queda limpio.
+   */
+  capturaChrome?: boolean;
+  /** Por defecto 16/10, que es lo que mide una captura de pantalla. */
+  capturaRatio?: string;
 };
 
 export const proyectos: Proyecto[] = [
@@ -75,9 +82,11 @@ export const proyectos: Proyecto[] = [
     stack: ["Three.js", "JavaScript", "WebGL"],
     href: "https://alejodipietro.github.io/aetheria/",
     repo: "https://github.com/AlejoDiPietro/aetheria",
-    captura: "/capturas/aetheria.jpg",
+    captura: "/capturas/aetheria.webp",
+    capturaChrome: false,
+    capturaRatio: "3 / 2",
     capturaAlt:
-      "El personaje en el santuario de la Pradera de Sakura, entre cerezos, con la fuente y el puesto del Mercader Aoi al lado, y el HUD de vida, maná y habilidades.",
+      "Pieza de presentación de Aetheria Online: el título y la lista de características a la izquierda, una captura grande del personaje en la Pradera de Sakura a la derecha, y abajo tres pantallas del juego — inventario, combate y la tienda del mercader.",
   },
   {
     slug: "web-publica",

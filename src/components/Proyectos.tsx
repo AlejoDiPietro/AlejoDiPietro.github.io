@@ -59,7 +59,8 @@ function ConCaptura({ p }: { p: Proyecto }) {
           alt={p.capturaAlt ?? ""}
           pendiente={p.capturaPendiente}
           transicion={`captura-${p.slug}`}
-          chrome
+          ratio={p.capturaRatio}
+          chrome={p.capturaChrome ?? true}
           className="transition-colors duration-300 group-hover:border-acento/50"
         />
         <div className="mt-4 flex items-baseline justify-between gap-4">
