@@ -74,6 +74,23 @@ export const proyectos: Proyecto[] = [
       "Pantalla principal del SGC con los indicadores del mes, producción por tejedor y resumen comercial y de finanzas.",
   },
   {
+    slug: "cotizador",
+    nombre: "Cotizador de cercos",
+    periodo: "2026",
+    resumen:
+      "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA. El cálculo es una función pura que corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Una cotización guardada no se recalcula: congela los precios del día, como una factura.",
+    stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
+    href: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    captura: "/capturas/cotizador.png",
+    // La medida real del archivo. La captura es el ancho completo del navegador:
+    // forzarla a 16/10 recortaria justo la tarjeta del total, que es lo que hay
+    // que ver.
+    capturaRatio: "1568 / 700",
+    capturaAlt:
+      "Pantalla del cotizador: a la izquierda el formulario con los tramos, la altura y el rombo del tejido; a la derecha el total con IVA sobre fondo oscuro y el detalle de materiales renglón por renglón.",
+  },
+  {
     slug: "aetheria",
     nombre: "Aetheria Online — un RPG 3D en el navegador",
     periodo: "2026",
