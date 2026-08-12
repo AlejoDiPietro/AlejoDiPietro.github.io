@@ -40,8 +40,25 @@ export type Proyecto = {
   periodo: string;
   resumen: string;
   stack: string[];
-  href?: string;
+
+  /**
+   * Los tres destinos posibles de un proyecto, cada uno con su nombre.
+   *
+   * Antes habia un solo `href` y cada tarjeta iba a otra cosa: el ERP a un caso
+   * de estudio, el juego al juego, el cotizador al codigo. Nadie sabia que iba a
+   * encontrar al hacer click. Ahora cada proyecto declara lo que TIENE y la
+   * tarjeta muestra esos links con su nombre; el que falta, falta a la vista.
+   */
+  /** El caso de estudio: como se penso y por que. Una ruta de este sitio. */
+  caso?: string;
+  /** Para abrirlo y usarlo ahora mismo. */
+  demo?: string;
+  /** El codigo. */
   repo?: string;
+
+  /** Por que no hay codigo para mostrar. Sin esto, la ausencia parece un olvido. */
+  sinRepo?: string;
+
   destacado?: boolean;
   /**
    * Captura del proyecto en public/capturas/. Mientras este vacio, la tarjeta
@@ -67,7 +84,8 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Seis módulos sobre un modelo de 127 entidades: gestión, comercial y finanzas en un solo lugar, con facturación electrónica ante ARCA y control de acceso de 106 permisos. Lo diseñé, lo construí y lo puse en producción en 3 meses.",
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL"],
-    href: "/proyectos/sgc",
+    caso: "/proyectos/sgc",
+    sinRepo: "Código privado: es el sistema que opera la empresa",
     destacado: true,
     captura: "/capturas/sgc-home.png",
     capturaAlt:
@@ -80,7 +98,7 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA, con el cerco dibujado a escala. El cálculo es una función pura: corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Los precios se editan desde la app y entran al cálculo como argumento, así que sigue siendo puro; y una cotización guardada no se recalcula, congela los precios del día como una factura.",
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
-    href: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    caso: "/proyectos/cotizador",
     repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
     captura: "/capturas/cotizador.webp",
     capturaChrome: false,
@@ -99,7 +117,7 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Un sandbox de combate y progresión con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework. Es lo único de esta lista que podés abrir y usar ahora mismo, sin pedirle permiso a nadie.",
     stack: ["Three.js", "JavaScript", "WebGL"],
-    href: "https://alejodipietro.github.io/aetheria/",
+    demo: "https://alejodipietro.github.io/aetheria/",
     repo: "https://github.com/AlejoDiPietro/aetheria",
     captura: "/capturas/aetheria.webp",
     capturaChrome: false,
@@ -114,7 +132,8 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Porté el sitio público de la empresa de PHP a Next.js con App Router, empezando por el catálogo de productos. El desafío no fue el framework: fue migrar sin romper las URLs que ya estaban indexadas.",
     stack: ["Next.js", "TypeScript", "Vercel"],
-    href: "/proyectos/web-publica",
+    caso: "/proyectos/web-publica",
+    sinRepo: "Código privado: es el sitio de la empresa",
     capturaPendiente: "Catálogo de productos",
   },
   {
@@ -124,7 +143,6 @@ export const proyectos: Proyecto[] = [
     resumen:
       "API REST que consume un servicio SOAP sobre un backend JPA/Hibernate con consultas HQL. Maven multi-módulo, con las capas separadas en serio: el módulo REST no depende del DAO, habla solo por WSDL.",
     stack: ["Java", "Hibernate", "JAX-WS", "Jersey", "MySQL"],
-    href: "https://github.com/AlejoDiPietro/gestion-proyectos",
     repo: "https://github.com/AlejoDiPietro/gestion-proyectos",
   },
   {
@@ -142,10 +160,21 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Next.js con export estático sobre GitHub Pages. Las animaciones al scrollear son IntersectionObserver a mano, sin librerías: son treinta líneas y pesan cero.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    href: "https://github.com/AlejoDiPietro/AlejoDiPietro.github.io",
+    demo: "https://alejodipietro.github.io",
     repo: "https://github.com/AlejoDiPietro/AlejoDiPietro.github.io",
   },
 ];
+
+/**
+ * A donde va un proyecto cuando se toca su tarjeta o se lo elige en el buscador.
+ *
+ * El caso de estudio primero, porque es lo que explica el proyecto. Si no hay
+ * caso, lo mejor es poder usarlo; y si tampoco, el codigo. Vive aca y no en cada
+ * componente para que la tarjeta y el buscador no puedan discrepar.
+ */
+export function destinoPrincipal(p: Proyecto): string | undefined {
+  return p.caso ?? p.demo ?? p.repo;
+}
 
 /** Las tecnologias que aparecen como filtro, en orden de relevancia. */
 export const filtros = [

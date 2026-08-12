@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { filtros, proyectos, type Proyecto } from "@/lib/content";
+import { destinoPrincipal, filtros, proyectos, type Proyecto } from "@/lib/content";
+import { Acciones } from "./Acciones";
 import { Captura } from "./Captura";
 import { Revelar } from "./Revelar";
 
@@ -14,8 +15,17 @@ function Stack({ items }: { items: string[] }) {
   );
 }
 
-function Flecha() {
-  return (
+/**
+ * El titulo es el link, y su `::after` cubre la tarjeta entera.
+ *
+ * Es la unica forma de que toda la tarjeta sea clickeable y que ADEMAS haya
+ * links adentro: un `<a>` dentro de otro `<a>` es HTML invalido, y el navegador
+ * lo desarma como quiere. Asi hay un solo link real para la tarjeta y los de
+ * `Acciones` quedan por encima con `z-10`.
+ */
+function Titulo({ p }: { p: Proyecto }) {
+  const destino = destinoPrincipal(p);
+  const flecha = (
     <span
       aria-hidden="true"
       className="ml-1.5 inline-block text-acento-texto opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
@@ -23,28 +33,27 @@ function Flecha() {
       →
     </span>
   );
-}
 
-/** Envuelve la tarjeta en el link que corresponda, o en nada si no hay link. */
-function Enlace({
-  href,
-  children,
-}: {
-  href?: string;
-  children: React.ReactNode;
-}) {
-  if (!href) return <>{children}</>;
+  if (!destino) return <>{p.nombre}</>;
 
-  if (href.startsWith("http")) {
+  if (destino.startsWith("http")) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className="block">
-        {children}
+      <a
+        href={destino}
+        target="_blank"
+        rel="noreferrer"
+        className="after:absolute after:inset-0 after:content-['']"
+      >
+        {p.nombre}
+        {flecha}
       </a>
     );
   }
+
   return (
-    <Link href={href} className="block">
-      {children}
+    <Link href={destino} className="after:absolute after:inset-0 after:content-['']">
+      {p.nombre}
+      {flecha}
     </Link>
   );
 }
@@ -52,51 +61,47 @@ function Enlace({
 /** Proyecto con captura: ocupa todo el ancho y muestra la pantalla. */
 function ConCaptura({ p }: { p: Proyecto }) {
   return (
-    <Enlace href={p.href}>
-      <article className="group">
-        <Captura
-          src={p.captura}
-          alt={p.capturaAlt ?? ""}
-          pendiente={p.capturaPendiente}
-          transicion={`captura-${p.slug}`}
-          ratio={p.capturaRatio}
-          chrome={p.capturaChrome ?? true}
-          className="transition-colors duration-300 group-hover:border-acento/50"
-        />
-        <div className="mt-4 flex items-baseline justify-between gap-4">
-          <h3 className="font-medium leading-snug">
-            {p.nombre}
-            {p.href && <Flecha />}
-          </h3>
-          <span className="shrink-0 font-mono text-[11px] text-muted">
-            {p.periodo}
-          </span>
-        </div>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{p.resumen}</p>
-        <Stack items={p.stack} />
-      </article>
-    </Enlace>
+    <article className="group relative">
+      <Captura
+        src={p.captura}
+        alt={p.capturaAlt ?? ""}
+        pendiente={p.capturaPendiente}
+        transicion={`captura-${p.slug}`}
+        ratio={p.capturaRatio}
+        chrome={p.capturaChrome ?? true}
+        className="transition-colors duration-300 group-hover:border-acento/50"
+      />
+      <div className="mt-4 flex items-baseline justify-between gap-4">
+        <h3 className="font-medium leading-snug">
+          <Titulo p={p} />
+        </h3>
+        <span className="shrink-0 font-mono text-[11px] text-muted">
+          {p.periodo}
+        </span>
+      </div>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{p.resumen}</p>
+      <Stack items={p.stack} />
+      <Acciones p={p} />
+    </article>
   );
 }
 
 /** Proyecto sin captura: fila compacta. */
 function Fila({ p }: { p: Proyecto }) {
   return (
-    <Enlace href={p.href}>
-      <article className="group py-5">
-        <div className="flex items-baseline justify-between gap-4">
-          <h3 className="font-medium leading-snug">
-            {p.nombre}
-            {p.href && <Flecha />}
-          </h3>
-          <span className="shrink-0 font-mono text-[11px] text-muted">
-            {p.periodo}
-          </span>
-        </div>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{p.resumen}</p>
-        <Stack items={p.stack} />
-      </article>
-    </Enlace>
+    <article className="group relative py-5">
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="font-medium leading-snug">
+          <Titulo p={p} />
+        </h3>
+        <span className="shrink-0 font-mono text-[11px] text-muted">
+          {p.periodo}
+        </span>
+      </div>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{p.resumen}</p>
+      <Stack items={p.stack} />
+      <Acciones p={p} />
+    </article>
   );
 }
 

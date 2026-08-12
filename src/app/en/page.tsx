@@ -22,14 +22,33 @@ const numbers = [
   { valor: "0", etiqueta: "invoices keyed in twice since then" },
 ];
 
-const work = [
+/**
+ * Los proyectos, cada uno declarando lo que ofrece.
+ *
+ * Tres destinos posibles y no uno: antes cada tarjeta iba a otra cosa —el ERP a
+ * un caso, el juego al juego, el cotizador al codigo— y nadie sabia que iba a
+ * encontrar. Lo que un proyecto no tiene, ahora se ve.
+ */
+type Trabajo = {
+  nombre: string;
+  periodo: string;
+  resumen: string;
+  stack: string;
+  caso?: string;
+  demo?: string;
+  repo?: string;
+  sinRepo?: string;
+};
+
+const work: Trabajo[] = [
   {
     nombre: "SGC — the ERP that runs a company",
     periodo: "2026",
     resumen:
       "Six modules over a 127-entity relational model: operations, sales and finance in one place, with electronic invoicing against the Argentine tax authority and a 106-permission access control layer. I designed it, built it and shipped it in three months, on my own.",
     stack: "Next.js · TypeScript · tRPC · Prisma · PostgreSQL",
-    href: "/proyectos/sgc",
+    caso: "/proyectos/sgc",
+    sinRepo: "Private: it runs the company",
   },
   {
     nombre: "Fence quoting tool",
@@ -37,7 +56,8 @@ const work = [
     resumen:
       "Metres of each side go in; a bill of materials, labour and the VAT-inclusive total come out, with the fence drawn to scale. The calculation is a pure function: it runs in the browser for the live number and again on the server when saving, discarding whatever totals the client sends. Prices are edited from the app and passed into the calculation as an argument, so it stays pure — and a saved quote is never recalculated, it freezes that day's prices the way an invoice does.",
     stack: "Next.js · TypeScript · tRPC · Prisma · Vitest",
-    href: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    caso: "/proyectos/cotizador",
+    repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
   },
   {
     nombre: "Aetheria Online — a 3D RPG in the browser",
@@ -45,7 +65,8 @@ const work = [
     resumen:
       "A combat and progression sandbox with five zones, rarity-based loot, inventory, gear and bosses, written with Three.js in a single index.html — no build step, no framework. It's the only thing on this list you can open and play right now.",
     stack: "Three.js · JavaScript · WebGL",
-    href: "https://alejodipietro.github.io/aetheria/",
+    demo: "https://alejodipietro.github.io/aetheria/",
+    repo: "https://github.com/AlejoDiPietro/aetheria",
   },
   {
     nombre: "Migrating a public site to Next.js",
@@ -53,7 +74,8 @@ const work = [
     resumen:
       "Ported a company's public website from PHP to Next.js App Router, starting with the product catalog. The hard part was never the framework — it was migrating without breaking URLs that were already indexed.",
     stack: "Next.js · TypeScript · Vercel",
-    href: "/proyectos/web-publica",
+    caso: "/proyectos/web-publica",
+    sinRepo: "Private: it's the company's website",
   },
   {
     nombre: "Project management — REST over SOAP",
@@ -61,7 +83,7 @@ const work = [
     resumen:
       "A REST API consuming a SOAP service over a JPA/Hibernate backend with HQL queries. Multi-module Maven, with the layers genuinely separated: the REST module has no dependency on the DAO, it only speaks WSDL.",
     stack: "Java · Hibernate · JAX-WS · Jersey · MySQL",
-    href: "https://github.com/AlejoDiPietro/gestion-proyectos",
+    repo: "https://github.com/AlejoDiPietro/gestion-proyectos",
   },
 ];
 
@@ -202,22 +224,10 @@ export default function En() {
         <ul className="divide-y divide-line border-y border-line">
           {work.map((p) => (
             <li key={p.nombre}>
-              <a
-                href={p.href}
-                {...(p.href.startsWith("http")
-                  ? { target: "_blank", rel: "noreferrer" }
-                  : {})}
-                className="group block py-6"
-              >
+              <article className="group relative py-6">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-medium">
-                    {p.nombre}
-                    <span
-                      aria-hidden="true"
-                      className="ml-1.5 inline-block text-acento-texto opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
-                    >
-                      →
-                    </span>
+                    <Principal p={p} />
                   </h3>
                   <span className="shrink-0 font-mono text-[11px] text-muted">
                     {p.periodo}
@@ -229,7 +239,8 @@ export default function En() {
                 <p className="mt-3 font-mono text-[11px] text-muted">
                   {p.stack}
                 </p>
-              </a>
+                <Acciones p={p} />
+              </article>
             </li>
           ))}
         </ul>
@@ -305,6 +316,73 @@ export default function En() {
           .
         </p>
       </div>
+    </div>
+  );
+}
+
+/**
+ * El titulo lleva al destino principal y su `::after` cubre el renglon entero,
+ * asi toda la fila es clickeable sin anidar un `<a>` dentro de otro.
+ */
+function Principal({ p }: { p: Trabajo }) {
+  const destino = p.caso ?? p.demo ?? p.repo;
+  const flecha = (
+    <span
+      aria-hidden="true"
+      className="ml-1.5 inline-block text-acento-texto opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
+    >
+      →
+    </span>
+  );
+
+  if (!destino) return <>{p.nombre}</>;
+
+  if (destino.startsWith("http")) {
+    return (
+      <a
+        href={destino}
+        target="_blank"
+        rel="noreferrer"
+        className="after:absolute after:inset-0 after:content-['']"
+      >
+        {p.nombre}
+        {flecha}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={destino} className="after:absolute after:inset-0 after:content-['']">
+      {p.nombre}
+      {flecha}
+    </Link>
+  );
+}
+
+/** Los mismos tres destinos que en la home, con los nombres en ingles. */
+function Acciones({ p }: { p: Trabajo }) {
+  const externo = { target: "_blank", rel: "noreferrer" } as const;
+
+  return (
+    <div className="relative z-10 mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px]">
+      {p.caso && (
+        <Link href={p.caso} className="link-accion">
+          Read the case <span aria-hidden="true">&rarr;</span>
+        </Link>
+      )}
+      {p.demo && (
+        <a href={p.demo} {...externo} className="link-accion">
+          Open <span aria-hidden="true">&#8599;</span>
+        </a>
+      )}
+      {p.repo && (
+        <a href={p.repo} {...externo} className="link-accion">
+          Code <span aria-hidden="true">&#8599;</span>
+        </a>
+      )}
+      {p.sinRepo && (
+        <span className="font-mono text-[11px] text-muted">{p.sinRepo}</span>
+      )}
     </div>
   );
 }
