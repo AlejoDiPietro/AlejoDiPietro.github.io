@@ -99,6 +99,7 @@ export const proyectos: Proyecto[] = [
       "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA, con el cerco dibujado a escala. El cálculo es una función pura: corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Los precios se editan desde la app y entran al cálculo como argumento, así que sigue siendo puro; y una cotización guardada no se recalcula, congela los precios del día como una factura.",
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
     caso: "/proyectos/cotizador",
+    demo: "https://cotizador-cercos.vercel.app",
     repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
     captura: "/capturas/cotizador.webp",
     capturaChrome: false,

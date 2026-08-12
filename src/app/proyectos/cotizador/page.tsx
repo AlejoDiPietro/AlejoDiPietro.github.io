@@ -37,6 +37,39 @@ export default function Cotizador() {
         className="mt-12"
       />
 
+      <Bloque>
+        <strong className="text-foreground">Probalo:</strong>{" "}
+        <a
+          href="https://cotizador-cercos.vercel.app"
+          target="_blank"
+          rel="noreferrer"
+          className="link-accion"
+        >
+          cotizador-cercos.vercel.app
+        </a>
+        . Cargá unos metros y mirá el total. Si querés ver la decisión que ordena
+        todo el proyecto: cambiá el precio del tejido en{" "}
+        <a
+          href="https://cotizador-cercos.vercel.app/productos"
+          target="_blank"
+          rel="noreferrer"
+          className="link-accion"
+        >
+          /productos
+        </a>{" "}
+        y después abrí{" "}
+        <a
+          href="https://cotizador-cercos.vercel.app/c/K7M2QX"
+          target="_blank"
+          rel="noreferrer"
+          className="link-accion"
+        >
+          una cotización ya guardada
+        </a>
+        : el total nuevo cambió y el viejo no, como una factura. Hay un botón para
+        devolver la lista de precios a su lugar.
+      </Bloque>
+
       <H2>Por qué lo hice</H2>
       <P>
         Mi trabajo más grande —el ERP que corre una empresa— es privado, y va a
@@ -191,11 +224,6 @@ export default function Cotizador() {
       </P>
 
       <H2>Lo que falta, y no lo escondo</H2>
-      <P>
-        <strong>No hay demo pública todavía</strong>: falta desplegarlo con
-        Postgres. Es lo próximo, y hasta que exista, lo único que se puede hacer es
-        leer el código.
-      </P>
       <P>
         <strong>Una cotización guardada no recuerda su costo</strong>, solo lo que
         se cobró. Se ve el margen mientras se cotiza, pero no se puede volver a una
