@@ -71,7 +71,7 @@ export const proyectos: Proyecto[] = [
     nombre: "Aetheria Online — un RPG 3D en el navegador",
     periodo: "2026",
     resumen:
-      "Action RPG con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework. Es lo único de esta lista que podés abrir y jugar ahora mismo.",
+      "Un sandbox de combate y progresión con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework. Es lo único de esta lista que podés abrir y usar ahora mismo, sin pedirle permiso a nadie.",
     stack: ["Three.js", "JavaScript", "WebGL"],
     href: "https://alejodipietro.github.io/aetheria/",
     repo: "https://github.com/AlejoDiPietro/aetheria",
