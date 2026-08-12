@@ -78,17 +78,17 @@ export const proyectos: Proyecto[] = [
     nombre: "Cotizador de cercos",
     periodo: "2026",
     resumen:
-      "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA. El cálculo es una función pura que corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Una cotización guardada no se recalcula: congela los precios del día, como una factura.",
+      "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA, con el cerco dibujado a escala. El cálculo es una función pura: corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Los precios se editan desde la app y entran al cálculo como argumento, así que sigue siendo puro; y una cotización guardada no se recalcula, congela los precios del día como una factura.",
     stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
     href: "https://github.com/AlejoDiPietro/cotizador-cercos",
     repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
     captura: "/capturas/cotizador.png",
     // La medida real del archivo. La captura es el ancho completo del navegador:
-    // forzarla a 16/10 recortaria justo la tarjeta del total, que es lo que hay
+    // forzarla a 16/10 recortaria justo el dibujo del cerco, que es lo que hay
     // que ver.
-    capturaRatio: "1568 / 700",
+    capturaRatio: "1568 / 668",
     capturaAlt:
-      "Pantalla del cotizador: a la izquierda el formulario con los tramos, la altura y el rombo del tejido; a la derecha el total con IVA sobre fondo oscuro y el detalle de materiales renglón por renglón.",
+      "Pantalla del cotizador: arriba, el cerco dibujado a escala con los postes, los hilos de tensión y el portón; abajo a la izquierda el formulario con los tramos y el tejido, y a la derecha el total con IVA sobre fondo oscuro.",
   },
   {
     slug: "aetheria",

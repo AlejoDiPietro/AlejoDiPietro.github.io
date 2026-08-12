@@ -35,7 +35,7 @@ const work = [
     nombre: "Fence quoting tool",
     periodo: "2026",
     resumen:
-      "Metres of each side go in; a bill of materials, labour and the VAT-inclusive total come out. The calculation is a pure function that runs in the browser for the live number and again on the server when saving, discarding whatever totals the client sends. A saved quote is never recalculated: it freezes that day's prices, the way an invoice does.",
+      "Metres of each side go in; a bill of materials, labour and the VAT-inclusive total come out, with the fence drawn to scale. The calculation is a pure function: it runs in the browser for the live number and again on the server when saving, discarding whatever totals the client sends. Prices are edited from the app and passed into the calculation as an argument, so it stays pure — and a saved quote is never recalculated, it freezes that day's prices the way an invoice does.",
     stack: "Next.js · TypeScript · tRPC · Prisma · Vitest",
     href: "https://github.com/AlejoDiPietro/cotizador-cercos",
   },
