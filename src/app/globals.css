@@ -246,6 +246,31 @@ p {
   background-size: 100% 1px;
 }
 
+/**
+ * Los links de accion de una tarjeta de proyecto ("Ver el caso", "Abrir",
+ * "Codigo").
+ *
+ * Van con el color del acento y no con el del texto: tienen que leerse como
+ * "esto se puede tocar" antes de que alguien lea que dicen. La flecha se
+ * desplaza sola al pasar por encima, que es lo que confirma que es un link.
+ */
+.link-accion {
+  color: var(--acento-texto);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: opacity 0.2s;
+}
+
+.link-accion:hover {
+  opacity: 0.75;
+}
+
+.link-accion:hover span {
+  transform: translateX(2px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .io .revelar {
     opacity: 1;

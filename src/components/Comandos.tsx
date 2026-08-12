@@ -9,7 +9,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { notas, perfil, proyectos } from "@/lib/content";
+import { destinoPrincipal, notas, perfil, proyectos } from "@/lib/content";
 import { PALETAS } from "./Paleta";
 
 /**
@@ -88,14 +88,15 @@ export function Comandos() {
     const lista: Comando[] = [];
 
     for (const p of proyectos) {
-      if (!p.href) continue;
+      const destino = destinoPrincipal(p);
+      if (!destino) continue;
       lista.push({
         id: `proy-${p.slug}`,
         etiqueta: p.nombre,
         grupo: "Proyectos",
         claves: p.stack.join(" "),
         detalle: p.periodo,
-        accion: () => ir(p.href!),
+        accion: () => ir(destino),
       });
     }
 
