@@ -74,6 +74,25 @@ export const proyectos: Proyecto[] = [
       "Pantalla principal del SGC con los indicadores del mes, producción por tejedor y resumen comercial y de finanzas.",
   },
   {
+    slug: "cotizador",
+    nombre: "Cotizador de cercos",
+    periodo: "2026",
+    resumen:
+      "Entran los metros de cada lado y sale la lista de materiales, la mano de obra y el total con IVA, con el cerco dibujado a escala. El cálculo es una función pura: corre en el navegador para el número en vivo y otra vez en el servidor al guardar, descartando los totales que manda el cliente. Los precios se editan desde la app y entran al cálculo como argumento, así que sigue siendo puro; y una cotización guardada no se recalcula, congela los precios del día como una factura.",
+    stack: ["Next.js", "TypeScript", "tRPC", "Prisma", "Vitest"],
+    href: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
+    captura: "/capturas/cotizador.webp",
+    capturaChrome: false,
+    // La medida del archivo. Se le recortó la franja de badges de tecnologías,
+    // que decía JavaScript/HTML5/CSS3/LocalStorage: ese es el stack de Aetheria,
+    // no de este proyecto, y en una app full-stack leído así la hace parecer un
+    // juguete.
+    capturaRatio: "1536 / 930",
+    capturaAlt:
+      "Pieza de presentación del Cotizador de cercos: a la izquierda el título y las cuatro cosas que hace; a la derecha una pantalla de la app con el cerco dibujado a escala, el formulario de tramos y el total con IVA de $4.183.744.",
+  },
+  {
     slug: "aetheria",
     nombre: "Aetheria Online — un RPG 3D en el navegador",
     periodo: "2026",

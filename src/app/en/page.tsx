@@ -32,6 +32,22 @@ const work = [
     href: "/proyectos/sgc",
   },
   {
+    nombre: "Fence quoting tool",
+    periodo: "2026",
+    resumen:
+      "Metres of each side go in; a bill of materials, labour and the VAT-inclusive total come out, with the fence drawn to scale. The calculation is a pure function: it runs in the browser for the live number and again on the server when saving, discarding whatever totals the client sends. Prices are edited from the app and passed into the calculation as an argument, so it stays pure — and a saved quote is never recalculated, it freezes that day's prices the way an invoice does.",
+    stack: "Next.js · TypeScript · tRPC · Prisma · Vitest",
+    href: "https://github.com/AlejoDiPietro/cotizador-cercos",
+  },
+  {
+    nombre: "Aetheria Online — a 3D RPG in the browser",
+    periodo: "2026",
+    resumen:
+      "A combat and progression sandbox with five zones, rarity-based loot, inventory, gear and bosses, written with Three.js in a single index.html — no build step, no framework. It's the only thing on this list you can open and play right now.",
+    stack: "Three.js · JavaScript · WebGL",
+    href: "https://alejodipietro.github.io/aetheria/",
+  },
+  {
     nombre: "Migrating a public site to Next.js",
     periodo: "2026",
     resumen:
