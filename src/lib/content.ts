@@ -77,7 +77,7 @@ export const proyectos: Proyecto[] = [
     repo: "https://github.com/AlejoDiPietro/aetheria",
     captura: "/capturas/aetheria.jpg",
     capturaAlt:
-      "El personaje frente al puesto del Mercader Aoi en la Pradera de Sakura, con el HUD de vida, maná y habilidades, y enemigos a lo lejos.",
+      "El personaje en el santuario de la Pradera de Sakura, entre cerezos, con la fuente y el puesto del Mercader Aoi al lado, y el HUD de vida, maná y habilidades.",
   },
   {
     slug: "web-publica",
