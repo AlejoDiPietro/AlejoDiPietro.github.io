@@ -29,7 +29,7 @@ import { ImageResponse } from "next/og";
  * fuente por defecto alcanza.
  */
 
-export const alt = "Alejo Di Pietro — Desarrollador Full-Stack";
+export const alt = "Alejo Di Pietro — Líder de Sistemas y Datos";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -93,8 +93,8 @@ export default function Image() {
               letterSpacing: -2,
             }}
           >
-            <div>Escribo software que se</div>
-            <div>usa todos los días.</div>
+            <div>Construyo sistemas y uso</div>
+            <div>sus datos para decidir.</div>
           </div>
           <div
             style={{
@@ -105,8 +105,8 @@ export default function Image() {
               lineHeight: 1.4,
             }}
           >
-            <div>Analista de Sistemas · Diseñé y puse en producción</div>
-            <div>el ERP que corre una empresa entera.</div>
+            <div>Líder de Sistemas y Datos · Diseñé y puse en</div>
+            <div>producción el sistema que corre una empresa entera.</div>
           </div>
         </div>
 

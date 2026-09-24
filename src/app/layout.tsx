@@ -31,7 +31,7 @@ const display = Instrument_Serif({
 const SITIO = "https://alejodipietro.github.io";
 
 const DESCRIPCION =
-  "Analista de Sistemas de 21 años. Diseñé y puse en producción el ERP que corre una empresa entera: pedidos, stock, finanzas y facturación electrónica ante ARCA.";
+  "Analista de Sistemas. Diseñé y puse en producción el sistema de gestión que corre una empresa entera, y trabajo con la dirección sobre los datos que genera: resultados, rentabilidad y pérdidas.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
@@ -43,6 +43,8 @@ export const metadata: Metadata = {
   authors: [{ name: perfil.nombre, url: SITIO }],
   creator: perfil.nombre,
   keywords: [
+    "sistemas de gestión",
+    "análisis de datos",
     "desarrollador full-stack",
     "Next.js",
     "TypeScript",

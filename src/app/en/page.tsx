@@ -8,18 +8,22 @@ import { perfil } from "@/lib/content";
 export const metadata: Metadata = {
   // `absolute` evita que el template del layout le pegue el nombre de nuevo
   // y quede "Alejo Di Pietro — Full-Stack Developer — Alejo Di Pietro".
-  title: { absolute: "Alejo Di Pietro — Full-Stack Developer" },
+  title: { absolute: "Alejo Di Pietro — Systems & Data Lead" },
   description:
-    "21-year-old Systems Analyst from Buenos Aires. I designed and shipped the ERP that runs an entire company: orders, inventory, finance and electronic invoicing with the Argentine tax authority.",
+    "Systems Analyst from Buenos Aires. I designed and shipped the management system that runs an entire company, and work with its leadership on the data it produces: results, profitability and losses.",
   openGraph: { locale: "en_US" },
   alternates: { canonical: "/en", languages: { "es-AR": "/", "en-US": "/en" } },
 };
+
+/** Se lee dos veces (mobile junto a la foto, escritorio en la columna derecha). */
+const INTRO =
+  "I'm a Systems Analyst and I lead systems and data at Cambren SRL. I designed and shipped the management system that now runs the whole company — sales, inventory, purchasing, finance and electronic invoicing with the Argentine tax authority — and I work alongside its leadership on the information it produces: income statements, profitability analysis and spotting where money is being lost.";
 
 const numbers = [
   { valor: "3 months", etiqueta: "from nothing to production" },
   { valor: "~10", etiqueta: "people use it every day" },
   { valor: "4", etiqueta: "departments on one shared model" },
-  { valor: "0", etiqueta: "invoices keyed in twice since then" },
+  { valor: "6", etiqueta: "modules in production" },
 ];
 
 /**
@@ -57,16 +61,8 @@ const work: Trabajo[] = [
       "Metres of each side go in; a bill of materials, labour and the VAT-inclusive total come out, with the fence drawn to scale. The calculation is a pure function: it runs in the browser for the live number and again on the server when saving, discarding whatever totals the client sends. Prices are edited from the app and passed into the calculation as an argument, so it stays pure — and a saved quote is never recalculated, it freezes that day's prices the way an invoice does.",
     stack: "Next.js · TypeScript · tRPC · Prisma · Vitest",
     caso: "/proyectos/cotizador",
+    demo: "https://cotizador-cercos.vercel.app",
     repo: "https://github.com/AlejoDiPietro/cotizador-cercos",
-  },
-  {
-    nombre: "Aetheria Online — a 3D RPG in the browser",
-    periodo: "2026",
-    resumen:
-      "A combat and progression sandbox with five zones, rarity-based loot, inventory, gear and bosses, written with Three.js in a single index.html — no build step, no framework. It's the only thing on this list you can open and play right now.",
-    stack: "Three.js · JavaScript · WebGL",
-    demo: "https://alejodipietro.github.io/aetheria/",
-    repo: "https://github.com/AlejoDiPietro/aetheria",
   },
   {
     nombre: "Migrating a public site to Next.js",
@@ -85,6 +81,15 @@ const work: Trabajo[] = [
     stack: "Java · Hibernate · JAX-WS · Jersey · MySQL",
     repo: "https://github.com/AlejoDiPietro/gestion-proyectos",
   },
+  {
+    nombre: "Aetheria Online — a 3D RPG in the browser",
+    periodo: "2026",
+    resumen:
+      "A personal project: a combat and progression sandbox with five zones, rarity-based loot, inventory, gear and bosses, written with Three.js in a single index.html — no build step, no framework.",
+    stack: "Three.js · JavaScript · WebGL",
+    demo: "https://alejodipietro.github.io/aetheria/",
+    repo: "https://github.com/AlejoDiPietro/aetheria",
+  },
 ];
 
 /** Agrupado por empresa: la progresión es el argumento, no cada puesto suelto. */
@@ -93,10 +98,10 @@ const experience = {
   periodo: "2024 — Present",
   puestos: [
     {
-      puesto: "Full-Stack Developer",
+      puesto: "Systems & Data Lead",
       periodo: "Apr 2026 — Present",
       descripcion:
-        "Designed and built end-to-end the ERP that runs the company's operations, integrated electronic invoicing with the tax authority, and added an internal AI assistant over the system's data.",
+        "Mapped the processes of every department and designed, built and shipped the ERP that runs the operation, with electronic invoicing and costs updated automatically from supplier invoices. I work with the owners, the accounting firm and external advisors: I prepare the income statements and profitability analysis, and provide the data to detect and fix operational losses.",
     },
     {
       puesto: "Finance & Treasury Analyst",
@@ -147,15 +152,11 @@ export default function En() {
             Buenos Aires, Argentina
           </p>
           <h1 className="display mt-5 text-[2.75rem] sm:text-5xl">
-            I write software people use every day.
+            I build systems and use their data to make decisions.
           </h1>
 
           <p className="mt-6 max-w-xl leading-relaxed text-muted lg:hidden">
-            I&apos;m 21 and a Systems Analyst. I joined a company at 18
-            answering customers on WhatsApp, moved through sales and treasury,
-            and ended up designing and shipping the system that now runs the
-            whole operation: orders, inventory, finance and electronic invoicing
-            with the Argentine tax authority.
+            {INTRO}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
@@ -194,11 +195,7 @@ export default function En() {
 
       <div className="min-w-0 flex-1 lg:py-16">
         <p className="mb-10 hidden max-w-2xl text-lg leading-relaxed text-muted lg:block">
-          I&apos;m 21 and a Systems Analyst. I joined a company at 18 answering
-          customers on WhatsApp, moved through sales and treasury, and ended up
-          designing and shipping the system that now runs the whole operation:
-          orders, inventory, finance and electronic invoicing with the Argentine
-          tax authority.
+          {INTRO}
         </p>
 
         <ul className="grid grid-cols-2 gap-x-8 gap-y-7 border-y border-line py-7 sm:grid-cols-4">
