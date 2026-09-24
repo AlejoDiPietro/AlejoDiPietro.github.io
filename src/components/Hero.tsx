@@ -26,19 +26,20 @@ export function Hero(p: Props) {
   return (
     <div className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:py-24">
       <div>
-        <div className="entrada flex items-center gap-4" style={retraso(0)}>
+        <div className="entrada flex items-center gap-5 sm:gap-6" style={retraso(0)}>
           {/*
-            La versión chica de la foto (224px, WebP). Sin optimizador de
-            imágenes en un export estático, `perfil.foto` serviría el PNG de
-            500 KB para un círculo de 56px y se comería el LCP en móvil.
+            La versión chica de la foto (288px, WebP: el doble del círculo de
+            128px, para pantallas retina). Sin optimizador de imágenes en un
+            export estático, `perfil.foto` serviría el PNG de 500 KB y se
+            comería el LCP en móvil.
           */}
           <Image
             src={perfil.fotoChica}
             alt={p.altFoto}
-            width={112}
-            height={112}
+            width={288}
+            height={288}
             priority
-            className="size-14 rounded-full object-cover ring-1 ring-line"
+            className="size-24 shrink-0 rounded-full object-cover ring-1 ring-line sm:size-32"
           />
           <div>
             <p className="etiqueta text-acento-texto">{p.etiqueta}</p>
