@@ -17,6 +17,11 @@ type Props = {
    * Sin soporte del navegador, la navegación es la de siempre.
    */
   transicion?: string;
+  /**
+   * Sin borde ni fondo propios: para cuando ya vive dentro de un marco (la
+   * tarjeta de proyecto) y un segundo borde sería una caja dentro de otra.
+   */
+  plano?: boolean;
   className?: string;
 };
 
@@ -34,11 +39,14 @@ export function Captura({
   ratio = "16 / 10",
   chrome = false,
   transicion,
+  plano = false,
   className = "",
 }: Props) {
   const marco = (
     <figure
-      className={`overflow-hidden rounded-xl border border-line bg-surface ${className}`}
+      className={`overflow-hidden ${
+        plano ? "border-b border-line" : "marco"
+      } ${className}`}
     >
       {chrome && (
         <div
@@ -53,7 +61,13 @@ export function Captura({
 
       <div className="relative w-full" style={{ aspectRatio: ratio }}>
         {src ? (
-          <Image src={src} alt={alt} fill className="object-cover" />
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(min-width: 1024px) 720px, 100vw"
+            className="object-cover object-top transition-transform duration-700 [transition-timing-function:var(--curva)] group-hover:scale-[1.02]"
+          />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-acento-suave/60 p-4">
             {/* Trama diagonal: dice "esto va a tener contenido" sin gritar. */}

@@ -11,126 +11,119 @@
  * nombran un color: piden --acento y --foreground, y no se enteran de cuál es.
  * Agregar una paleta es agregar dos bloques acá y una entrada en PALETAS
  * (components/Paleta.tsx); no se toca ningún componente.
+ *
+ * El sitio es oscuro por defecto: el rediseño (grafito y ámbar, el flujo de
+ * datos) se pensó sobre negro y el claro es la alternativa, no al revés.
  */
 
-/* ── Cobre: papel y tinta, acento cálido. Editorial. ─────────────────── */
+/* ── Cobre: grafito cálido y ámbar. La identidad del sitio. ─────────── */
 :root,
 :root[data-paleta="cobre"] {
-  --background: #fcfbf8;
-  --foreground: #191817;
-  --muted: #6b6862;
-  --line: #e6e2d9;
+  --background: #f8f6f1;
+  --foreground: #1a1916;
+  --muted: #6c6860;
+  --line: #e3dfd5;
   --surface: #ffffff;
-  --acento: #a8501c;
-  --acento-2: #b8791f;
-  --acento-texto: #97481a;
-  --acento-suave: #f6efe7;
+  --acento: #b5561b;
+  --acento-2: #c48a2a;
+  --acento-texto: #9e4a16;
+  --acento-suave: #f5ede2;
+  --glow: rgba(181, 86, 27, 0.14);
 }
 
 :root[data-tema="oscuro"],
 :root[data-paleta="cobre"][data-tema="oscuro"] {
-  --background: #0c0c0b;
-  --foreground: #ebe9e4;
-  --muted: #918d85;
-  --line: #262523;
-  --surface: #141413;
-  --acento: #dd8f4f;
-  --acento-2: #e0b45f;
-  --acento-texto: #e5a26a;
-  --acento-suave: #1d1a16;
+  --background: #121211;
+  --foreground: #ecebe6;
+  --muted: #9a968d;
+  --line: #2a2926;
+  --surface: #191917;
+  --acento: #f0a33b;
+  --acento-2: #e6c26a;
+  --acento-texto: #f2b45f;
+  --acento-suave: #241d12;
+  --glow: rgba(240, 163, 59, 0.16);
 }
 
-/* ── Violeta: la paleta original, con el acento mejor calibrado. ─────── */
+/* ── Violeta ───────────────────────────────────────────────────────────── */
 :root[data-paleta="violeta"] {
-  --background: #fbfbfd;
+  --background: #f8f8fb;
   --foreground: #16151c;
   --muted: #64626f;
-  --line: #e5e3ee;
+  --line: #e3e1ec;
   --surface: #ffffff;
   --acento: #6d4aff;
   --acento-2: #2563eb;
   --acento-texto: #5a35f0;
-  --acento-suave: #f1edff;
+  --acento-suave: #efebff;
+  --glow: rgba(109, 74, 255, 0.14);
 }
 
 :root[data-paleta="violeta"][data-tema="oscuro"] {
-  --background: #0b0a10;
+  --background: #0f0e14;
   --foreground: #ecebf2;
   --muted: #9d9aab;
-  --line: #232130;
-  --surface: #141320;
+  --line: #27253a;
+  --surface: #161522;
   --acento: #8b6dff;
   --acento-2: #5b8cff;
   --acento-texto: #b3a0ff;
-  --acento-suave: #1b1730;
+  --acento-suave: #1c1830;
+  --glow: rgba(139, 109, 255, 0.18);
 }
 
-/* ── Índigo: azul profundo con acento cian. Serio, muy "producto". ───── */
+/* ── Índigo ────────────────────────────────────────────────────────────── */
 :root[data-paleta="indigo"] {
-  --background: #f6f9fc;
+  --background: #f5f8fb;
   --foreground: #0d1b2a;
   --muted: #55657a;
-  --line: #dde5ef;
+  --line: #dbe3ed;
   --surface: #ffffff;
   --acento: #0e7490;
   --acento-2: #1d4ed8;
   --acento-texto: #0c6a83;
-  --acento-suave: #e6f3f8;
+  --acento-suave: #e4f1f6;
+  --glow: rgba(14, 116, 144, 0.14);
 }
 
 :root[data-paleta="indigo"][data-tema="oscuro"] {
-  --background: #0a1120;
+  --background: #0c1320;
   --foreground: #e2e8f4;
   --muted: #8595ad;
-  --line: #1d2740;
-  --surface: #111a2e;
+  --line: #1f2a44;
+  --surface: #121b2e;
   --acento: #38bdf8;
   --acento-2: #818cf8;
   --acento-texto: #67d3fb;
-  --acento-suave: #102338;
+  --acento-suave: #10233a;
+  --glow: rgba(56, 189, 248, 0.16);
 }
 
-/* ── Verde: casi negro con acento esmeralda. El más "terminal". ──────── */
+/* ── Verde ─────────────────────────────────────────────────────────────── */
 :root[data-paleta="verde"] {
-  --background: #fafcfa;
+  --background: #f6faf7;
   --foreground: #14201a;
   --muted: #5c6b63;
-  --line: #dfe8e2;
+  --line: #dbe6df;
   --surface: #ffffff;
   --acento: #1a7a4f;
   --acento-2: #0f766e;
   --acento-texto: #176d47;
-  --acento-suave: #e8f4ee;
+  --acento-suave: #e5f2ea;
+  --glow: rgba(26, 122, 79, 0.14);
 }
 
 :root[data-paleta="verde"][data-tema="oscuro"] {
-  --background: #0a0f0c;
+  --background: #0c110e;
   --foreground: #e6ece8;
   --muted: #869187;
-  --line: #1e2822;
-  --surface: #101815;
+  --line: #212b25;
+  --surface: #121a15;
   --acento: #34d399;
   --acento-2: #2dd4bf;
   --acento-texto: #5ee0ae;
-  --acento-suave: #102019;
-}
-
-/*
- * Sin JavaScript no hay atributos, así que el sitio cae en el bloque :root de
- * arriba (cobre claro). Esto le devuelve el modo oscuro a ese caso.
- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-tema]) {
-    --background: #0c0c0b;
-    --foreground: #ebe9e4;
-    --muted: #918d85;
-    --line: #262523;
-    --surface: #141413;
-    --acento: #dd8f4f;
-    --acento-2: #e0b45f;
-    --acento-texto: #e5a26a;
-    --acento-suave: #1d1a16;
-  }
+  --acento-suave: #10211a;
+  --glow: rgba(52, 211, 153, 0.16);
 }
 
 @theme inline {
@@ -148,31 +141,64 @@
   --font-display: var(--font-display);
 }
 
+/*
+ * Una curva para todo lo que se mueve. Es la misma en las transiciones de
+ * hover, en el revelado y en las animaciones de entrada: si todo desacelera
+ * igual, el sitio se siente como una sola cosa y no como una colección.
+ */
+:root {
+  --curva: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Al cambiar de paleta, que no sea un corte seco. */
   transition:
     background-color 0.35s ease,
     color 0.35s ease;
 }
 
 /*
+ * El fondo técnico: una trama de puntos que se desvanece hacia abajo, y un
+ * resplandor del acento arriba a la derecha, donde vive el diagrama del hero.
+ * Es un pseudo-elemento fijo y no un fondo del body para que la trama no se
+ * mueva con el scroll: es la mesa sobre la que pasa todo lo demás.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(60rem 40rem at 85% -10%, var(--glow), transparent 60%),
+    radial-gradient(var(--line) 1px, transparent 1.2px);
+  background-size:
+    100% 100%,
+    26px 26px;
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
+/*
  * La serif solo aparece donde hay voz editorial: el hero, los titulos de las
- * notas y de los casos. La UI (tarjetas, botones, nav) se queda en sans.
- * Mezclarlas sin regla es lo que hace que un sitio parezca plantilla.
+ * etapas, de las notas y de los casos. La UI (tarjetas, botones, nav) se
+ * queda en sans. Mezclarlas sin regla es lo que hace que un sitio parezca
+ * plantilla.
  */
 .display {
   font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.015em;
-  line-height: 1.05;
+  line-height: 1.02;
   text-wrap: balance;
 }
 
-/* Parrafos largos: evita la ultima linea huerfana de una sola palabra. */
 p {
   text-wrap: pretty;
 }
@@ -182,28 +208,234 @@ p {
   color: var(--background);
 }
 
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Etiqueta técnica: mono, chica, en mayúsculas espaciadas. */
+.etiqueta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 /*
- * Scroll sin barra visible. Lo usa la columna fija de la home: en pantallas
- * bajas su contenido no entra, y sin esto la parte de abajo queda inalcanzable
- * porque `sticky` la clava fuera de la vista.
+ * El marco: la forma que repite todo el sitio.
+ *
+ * Un panel con el borde fino y cuatro marcas en las esquinas, como los
+ * registros de un plano. Las marcas están hechas con gradientes de fondo y
+ * no con pseudo-elementos, así el `::before` y el `::after` quedan libres
+ * para las tarjetas que los necesitan (el link que cubre la tarjeta entera).
  */
-.sin-barra {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+.marco {
+  position: relative;
+  background:
+    linear-gradient(var(--acento), var(--acento)) top left / 10px 1px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) top left / 1px 10px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) top right / 10px 1px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) top right / 1px 10px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) bottom left / 10px 1px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) bottom left / 1px 10px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) bottom right / 10px 1px no-repeat,
+    linear-gradient(var(--acento), var(--acento)) bottom right / 1px 10px no-repeat,
+    var(--surface);
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.4s var(--curva),
+    transform 0.4s var(--curva),
+    box-shadow 0.4s var(--curva);
 }
 
-.sin-barra::-webkit-scrollbar {
-  display: none;
+.marco-hover:hover {
+  border-color: color-mix(in srgb, var(--acento) 55%, var(--line));
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -24px var(--glow);
 }
 
-/* Hairline con degradado del acento: la usan los títulos de sección. */
-.regla-acento {
-  background-image: linear-gradient(
-    to right,
-    var(--acento),
-    var(--acento-2) 30%,
-    var(--line) 75%
-  );
+/*
+ * El espinazo: la línea que recorre la home de arriba abajo.
+ *
+ * Es el flujo de datos hecho visible. La pista siempre está; el trazo se
+ * dibuja con el scroll (la variable --progreso la escribe Espinazo.tsx) y las
+ * partículas bajan solas con una animación CSS, sin JavaScript por cuadro.
+ *
+ * `container-type: size` es para que las partículas puedan recorrer el alto
+ * del espinazo en unidades cqh, sin que nadie lo mida.
+ */
+.flujo {
+  position: relative;
+  --ex: -1.1rem;
+}
+
+@media (min-width: 1024px) {
+  .flujo {
+    --ex: -3rem;
+  }
+}
+
+.espinazo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ex);
+  width: 2px;
+  container-type: size;
+  pointer-events: none;
+}
+
+.espinazo-pista,
+.espinazo-trazo {
+  position: absolute;
+  inset: 0;
+  border-radius: 1px;
+}
+
+.espinazo-pista {
+  background: var(--line);
+}
+
+.espinazo-trazo {
+  background: linear-gradient(to bottom, var(--acento), var(--acento-2));
+  transform-origin: top;
+  transform: scaleY(var(--progreso, 0));
+  will-change: transform;
+}
+
+.particula {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 999px;
+  background: var(--acento);
+  box-shadow: 0 0 10px 2px var(--glow);
+  animation: bajar var(--dur, 14s) linear infinite;
+  animation-delay: var(--retraso, 0s);
+}
+
+@keyframes bajar {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100cqh);
+    opacity: 0;
+  }
+}
+
+/* El nodo de cada etapa, clavado sobre el espinazo. */
+.nodo {
+  position: absolute;
+  left: calc(var(--ex) + 1px);
+  top: calc(3.5rem + 0.6rem);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--background);
+  transition:
+    border-color 0.5s var(--curva),
+    box-shadow 0.5s var(--curva),
+    transform 0.5s var(--curva);
+}
+
+@media (min-width: 640px) {
+  .nodo {
+    top: calc(4rem + 0.7rem);
+  }
+}
+
+.etapa[data-activa="true"] .nodo {
+  border-color: var(--acento);
+  box-shadow: 0 0 0 4px var(--glow);
+  transform: scale(1.15);
+}
+
+/* El nodo del presente en la experiencia late despacio: "esto sigue". */
+.late {
+  animation: latir 2.6s ease-in-out infinite;
+}
+
+@keyframes latir {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--glow);
+  }
+  50% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+/*
+ * El diagrama del hero. Los cables se dibujan al cargar (dasharray/offset
+ * con un retraso por cable), las cajas aparecen después, y los puntos que
+ * viajan por los cables son <animateMotion> de SVG: corren sin JavaScript y
+ * también en Safari, que todavía no mueve elementos SVG con offset-path.
+ */
+.cable {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: dibujar 1.4s var(--curva) forwards;
+  animation-delay: var(--retraso, 0s);
+}
+
+@keyframes dibujar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.caja {
+  opacity: 0;
+  animation: aparecer 0.7s var(--curva) forwards;
+  animation-delay: var(--retraso, 0s);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.punto {
+  fill: var(--acento);
+  filter: drop-shadow(0 0 4px var(--acento));
+}
+
+/* El corazón del diagrama respira: es el sistema andando. */
+.nucleo {
+  animation: respirar 4s ease-in-out infinite;
+}
+
+@keyframes respirar {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /*
@@ -216,10 +448,10 @@ p {
  */
 .io .revelar {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(16px);
   transition:
-    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.7s var(--curva),
+    transform 0.7s var(--curva);
 }
 
 .io .revelar.visible {
@@ -227,10 +459,10 @@ p {
   transform: none;
 }
 
-:focus-visible {
-  outline: 2px solid var(--acento);
-  outline-offset: 3px;
-  border-radius: 3px;
+/* Entrada del hero: escalonada, sin observer, porque ya está en pantalla. */
+.entrada {
+  animation: aparecer 0.9s var(--curva) both;
+  animation-delay: var(--retraso, 0s);
 }
 
 /* Subrayado que crece desde la izquierda al pasar por encima. */
@@ -239,21 +471,14 @@ p {
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 1px;
-  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-size 0.3s var(--curva);
 }
 
 .link-sutil:hover {
   background-size: 100% 1px;
 }
 
-/**
- * Los links de accion de una tarjeta de proyecto ("Ver el caso", "Abrir",
- * "Codigo").
- *
- * Van con el color del acento y no con el del texto: tienen que leerse como
- * "esto se puede tocar" antes de que alguien lea que dicen. La flecha se
- * desplaza sola al pasar por encima, que es lo que confirma que es un link.
- */
+/* Los links de accion de una tarjeta ("Ver el caso", "Abrir", "Codigo"). */
 .link-accion {
   color: var(--acento-texto);
   font-weight: 500;
@@ -271,11 +496,118 @@ p {
   transform: translateX(2px);
 }
 
+/* Botón principal: relleno de acento, con un brillo que cruza al pasar. */
+.boton {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--acento);
+  color: var(--background);
+  padding: 0.7rem 1.35rem;
+  font-weight: 500;
+}
+
+.boton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.7s var(--curva);
+}
+
+.boton:hover::after {
+  transform: translateX(100%);
+}
+
+.boton-borde {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 0.7rem 1.35rem;
+  font-weight: 500;
+  transition:
+    border-color 0.3s var(--curva),
+    color 0.3s var(--curva);
+}
+
+.boton-borde:hover {
+  border-color: var(--acento);
+  color: var(--acento-texto);
+}
+
+/* Chip del stack y de los filtros. */
+.chip {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition:
+    border-color 0.3s var(--curva),
+    color 0.3s var(--curva),
+    background-color 0.3s var(--curva);
+}
+
+.chip:hover {
+  border-color: var(--acento);
+  color: var(--acento-texto);
+  background: var(--acento-suave);
+}
+
+/* Tarjeta de proyecto compacta: el resumen no puede comerse la grilla. */
+.recorte-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/*
+ * Menos movimiento: el trazo aparece entero, las partículas y los puntos del
+ * diagrama no existen, y todo lo demás llega a su estado final sin viajar.
+ */
 @media (prefers-reduced-motion: reduce) {
-  .io .revelar {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .io .revelar,
+  .entrada,
+  .caja {
     opacity: 1;
     transform: none;
     transition: none;
+    animation: none;
+  }
+
+  .cable {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .espinazo-trazo {
+    transform: none;
+  }
+
+  .particula,
+  .punto {
+    display: none;
+  }
+
+  .nucleo,
+  .late {
+    animation: none;
   }
 
   *,

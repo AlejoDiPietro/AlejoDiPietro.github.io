@@ -28,23 +28,24 @@ export function Titulo({
   bajada?: string;
 }) {
   return (
-    <header className="mt-7">
+    <header className="entrada mt-7">
       {meta && (
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-acento-texto">
+        <p className="etiqueta flex items-center gap-3 text-acento-texto">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-acento" />
           {meta}
         </p>
       )}
-      <h1 className="display mt-4 text-4xl sm:text-5xl">{children}</h1>
-      {bajada && <p className="mt-5 leading-relaxed text-muted">{bajada}</p>}
+      <h1 className="display mt-5 text-4xl sm:text-[3.4rem]">{children}</h1>
+      {bajada && (
+        <p className="mt-6 text-[1.05rem] leading-relaxed text-muted">{bajada}</p>
+      )}
     </header>
   );
 }
 
 export function H2({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-1 mt-14 text-lg font-semibold tracking-tight">
-      {children}
-    </h2>
+    <h2 className="display mb-2 mt-16 text-[1.9rem]">{children}</h2>
   );
 }
 
@@ -75,13 +76,16 @@ export function Datos({
   items: { valor: string; etiqueta: string }[];
 }) {
   return (
-    <dl className="mt-9 grid grid-cols-2 gap-x-8 gap-y-6 border-y border-line py-6 sm:grid-cols-4">
-      {items.map((n) => (
-        <div key={n.etiqueta}>
-          <dd className="font-mono text-xl leading-none text-acento-texto">
+    <dl className="marco mt-10 grid grid-cols-2 sm:grid-cols-4 sm:divide-x sm:divide-line">
+      {items.map((n, i) => (
+        <div
+          key={n.etiqueta}
+          className={`flex flex-col-reverse px-5 py-5 ${i < 2 ? "border-b border-line sm:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-line sm:border-l-0" : ""}`}
+        >
+          <dt className="mt-2.5 text-xs leading-snug text-muted">{n.etiqueta}</dt>
+          <dd className="font-mono text-2xl leading-none text-acento-texto">
             {n.valor}
           </dd>
-          <dt className="mt-2 text-xs leading-snug text-muted">{n.etiqueta}</dt>
         </div>
       ))}
     </dl>
@@ -90,7 +94,7 @@ export function Datos({
 
 export function Bloque({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mt-14 rounded-xl border border-line bg-surface p-5 text-sm leading-relaxed text-muted">
+    <div className="marco mt-14 p-5 text-sm leading-relaxed text-muted">
       {children}
     </div>
   );

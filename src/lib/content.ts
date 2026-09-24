@@ -15,6 +15,8 @@ export const perfil = {
   cv: "/cv-alejo-di-pietro.pdf",
   cvIngles: "/alejo-di-pietro-resume-en.pdf",
   foto: "/alejo.png",
+  /** La misma foto en 224px WebP, para el hero. La grande queda para OpenGraph y JSON-LD. */
+  fotoChica: "/alejo-hero.webp",
 
   // Lo primero que se lee. Tiene que sonar a persona, no a CV.
   saludo: "Alejo Di Pietro",
