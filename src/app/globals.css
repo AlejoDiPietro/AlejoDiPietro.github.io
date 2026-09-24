@@ -565,14 +565,6 @@ p {
   background: var(--acento-suave);
 }
 
-/* Tarjeta de proyecto compacta: el resumen no puede comerse la grilla. */
-.recorte-5 {
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 /*
  * Menos movimiento: el trazo aparece entero, las partículas y los puntos del
  * diagrama no existen, y todo lo demás llega a su estado final sin viajar.

@@ -53,10 +53,10 @@ function Titulo({ p }: { p: Proyecto }) {
 /**
  * Una tarjeta de la grilla.
  *
- * El proyecto destacado ocupa dos tercios del ancho y muestra su captura
- * grande; el resto son tarjetas de un tercio. Las que tienen captura la
- * muestran arriba; las que no, llevan el índice y el año en una franja, así
- * la grilla no queda con huecos de distinto peso.
+ * El proyecto destacado va solo, a todo el ancho, con la captura a la
+ * izquierda y el texto a la derecha en escritorio. El resto son tarjetas de
+ * columna: las que tienen captura la muestran arriba; las que no, llevan el
+ * índice y el año en una franja, así ninguna arranca con un hueco.
  */
 function Tarjeta({
   p,
@@ -71,16 +71,21 @@ function Tarjeta({
   const conImagen = Boolean(p.captura || p.capturaPendiente);
 
   return (
-    <article className="marco marco-hover group relative flex w-full flex-col">
+    <article
+      className={`marco marco-hover group relative flex w-full flex-col ${
+        destacado ? "lg:grid lg:grid-cols-[3fr_2fr]" : ""
+      }`}
+    >
       {conImagen ? (
         <Captura
           src={p.captura}
           alt={p.capturaAlt ?? ""}
           pendiente={p.capturaPendiente}
           transicion={`captura-${p.slug}`}
-          ratio={destacado ? (p.capturaRatio ?? "16 / 9") : "16 / 10"}
+          ratio={destacado ? (p.capturaRatio ?? "16 / 10") : "16 / 10"}
           chrome={p.capturaChrome ?? true}
           plano
+          className={destacado ? "lg:border-b-0 lg:border-r lg:border-line" : ""}
         />
       ) : (
         <div className="flex items-center justify-between border-b border-line px-5 py-3">
@@ -91,9 +96,9 @@ function Tarjeta({
         </div>
       )}
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className={`flex flex-1 flex-col p-5 ${destacado ? "lg:justify-center lg:p-8" : ""}`}>
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className={`font-medium leading-snug ${destacado ? "text-lg" : ""}`}>
+          <h3 className={`font-medium leading-snug ${destacado ? "text-xl" : ""}`}>
             <Titulo p={p} />
           </h3>
           {conImagen && (
@@ -103,15 +108,9 @@ function Tarjeta({
           )}
         </div>
 
-        <p
-          className={`mt-2.5 text-sm leading-relaxed text-muted ${
-            destacado ? "" : "recorte-5"
-          }`}
-        >
-          {p.resumen}
-        </p>
+        <p className="mt-2.5 text-sm leading-relaxed text-muted">{p.resumen}</p>
 
-        <p className="mt-auto pt-4 font-mono text-[11px] leading-relaxed text-muted">
+        <p className={`pt-4 font-mono text-[11px] leading-relaxed text-muted ${destacado ? "" : "mt-auto"}`}>
           {p.stack.join(" · ")}
         </p>
         <Acciones p={p} textos={textos} />
@@ -128,21 +127,36 @@ export function Grilla({
   items: Proyecto[];
   textos?: TextosAcciones;
 }) {
-  // items-start: cada tarjeta mide lo que su contenido pide. Estiradas a la
-  // fila, las de texto quedaban con medio panel vacío al lado de una captura.
+  /*
+    Mosaico en columnas (CSS multicol) y no una grilla de filas: en una
+    grilla, la fila mide lo que mide la tarjeta más alta y las demás quedan
+    con aire adentro o abajo. Con columnas cada tarjeta mide lo suyo y la
+    siguiente se apoya justo debajo. El destacado va aparte, a todo el ancho,
+    porque una tarjeta no puede cruzar columnas.
+  */
+  const destacado = items.find((p) => p.destacado);
+  const resto = items.filter((p) => p !== destacado);
+
   return (
-    <ul className="grid gap-5 lg:grid-cols-6 lg:items-start">
-      {items.map((p, i) => (
-        <li
-          key={p.slug}
-          className={`flex ${p.destacado ? "lg:col-span-4" : "lg:col-span-2"}`}
-        >
-          <Revelar delay={(i % 3) * 80} className="flex w-full">
-            <Tarjeta p={p} indice={i} textos={textos} />
-          </Revelar>
-        </li>
-      ))}
-    </ul>
+    <div>
+      {destacado && (
+        <Revelar>
+          <Tarjeta p={destacado} indice={0} textos={textos} />
+        </Revelar>
+      )}
+
+      <ul
+        className={`gap-5 md:columns-2 lg:columns-3 ${destacado ? "mt-5" : ""}`}
+      >
+        {resto.map((p, i) => (
+          <li key={p.slug} className="mb-5 break-inside-avoid">
+            <Revelar delay={(i % 3) * 80}>
+              <Tarjeta p={p} indice={i + 1} textos={textos} />
+            </Revelar>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
