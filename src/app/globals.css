@@ -186,14 +186,19 @@ p {
  * Scroll sin barra visible. Lo usa la columna fija de la home: en pantallas
  * bajas su contenido no entra, y sin esto la parte de abajo queda inalcanzable
  * porque `sticky` la clava fuera de la vista.
+ *
+ * Va como @utility y no como clase suelta porque se usa con variante
+ * (`lg:sin-barra`), y Tailwind 4 solo aplica variantes a utilidades declaradas.
+ * Como clase comun el `lg:` no generaba nada y la barra aparecia apenas la
+ * columna desbordaba.
  */
-.sin-barra {
+@utility sin-barra {
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
 
-.sin-barra::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Hairline con degradado del acento: la usan los títulos de sección. */
