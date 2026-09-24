@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Prompt de trabajo, no es parte del sitio
+PROMPT_REDISENO.md
