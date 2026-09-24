@@ -18,11 +18,8 @@ import { ImageResponse } from "next/og";
  * ---
  *
  * Imagen que se ve cuando alguien pega el link en LinkedIn, WhatsApp o Slack.
- *
- * Se genera una sola vez durante `next build` y queda como PNG estatico, asi
- * que funciona igual sobre GitHub Pages. Sin esto, cada vez que se comparte el
- * sitio aparece un rectangulo gris: es el primer contacto y conviene que no lo
- * sea.
+ * Es el hero en miniatura: la frase, y a la derecha el flujo (entra → sistema
+ * → sale) con las mismas formas que el sitio, el marco con esquinas incluido.
  *
  * No carga tipografias propias a proposito: bajar un .ttf durante el build es
  * una dependencia de red mas que puede fallar, y para dos lineas de texto la
@@ -39,12 +36,63 @@ export const contentType = "image/png";
  */
 export const dynamic = "force-static";
 
-const TINTA = "#ebe9e4";
-const FONDO = "#0c0c0b";
-const COBRE = "#dd8f4f";
-const APAGADO = "#918d85";
+const TINTA = "#ecebe6";
+const FONDO = "#121211";
+const SUPERFICIE = "#191917";
+const LINEA = "#2a2926";
+const AMBAR = "#f0a33b";
+const APAGADO = "#9a968d";
+
+/** Caja del diagrama. Satori exige display:flex en todo div con hijos. */
+function Caja({ texto, ancho = 150 }: { texto: string; ancho?: number }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: ancho,
+        height: 40,
+        padding: "0 14px",
+        border: `1px solid ${LINEA}`,
+        borderRadius: 6,
+        background: SUPERFICIE,
+        color: TINTA,
+        fontSize: 15,
+      }}
+    >
+      {texto}
+    </div>
+  );
+}
+
+function Cable({ ancho = 36 }: { ancho?: number }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: ancho,
+        height: 2,
+        background: LINEA,
+      }}
+    >
+      <div
+        style={{
+          width: 6,
+          height: 6,
+          borderRadius: 999,
+          background: AMBAR,
+          marginLeft: ancho / 2 - 3,
+        }}
+      />
+    </div>
+  );
+}
 
 export default function Image() {
+  const entradas = ["Ventas", "Stock", "Compras", "Finanzas"];
+  const salidas = ["Resultados", "Rentabilidad", "Decisiones"];
+
   return new ImageResponse(
     (
       <div
@@ -52,61 +100,21 @@ export default function Image() {
           width: "100%",
           height: "100%",
           background: FONDO,
+          backgroundImage: `radial-gradient(${LINEA} 1px, transparent 1.2px)`,
+          backgroundSize: "26px 26px",
           color: TINTA,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px 80px",
+          padding: "64px 72px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 999,
-              background: COBRE,
-            }}
+            style={{ width: 10, height: 10, borderRadius: 999, background: AMBAR }}
           />
-          <div style={{ fontSize: 26, color: APAGADO, letterSpacing: 4 }}>
-            ALEJO DI PIETRO
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 28,
-          }}
-        >
-          {/*
-            Satori exige display:flex en cualquier div con mas de un hijo, y no
-            entiende <br/>. Por eso cada renglon es su propio div.
-          */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: 86,
-              lineHeight: 1.1,
-              letterSpacing: -2,
-            }}
-          >
-            <div>Construyo sistemas y uso</div>
-            <div>sus datos para decidir.</div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              fontSize: 30,
-              color: APAGADO,
-              lineHeight: 1.4,
-            }}
-          >
-            <div>Líder de Sistemas y Datos · Diseñé y puse en</div>
-            <div>producción el sistema que corre una empresa entera.</div>
+          <div style={{ fontSize: 22, color: APAGADO, letterSpacing: 5 }}>
+            ALEJO DI PIETRO · LÍDER DE SISTEMAS Y DATOS
           </div>
         </div>
 
@@ -115,15 +123,82 @@ export default function Image() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid #262523",
-            paddingTop: 28,
-            fontSize: 24,
+            gap: 40,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              fontSize: 58,
+              lineHeight: 1.08,
+              letterSpacing: -1.5,
+              width: 520,
+              flexShrink: 0,
+            }}
+          >
+            <div>Construyo sistemas</div>
+            <div>y uso sus datos</div>
+            <div>para decidir.</div>
+          </div>
+
+          {/* El flujo, dentro del marco con esquinas. */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "26px 24px",
+              border: `1px solid ${LINEA}`,
+              background: SUPERFICIE,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {entradas.map((t) => (
+                <Caja key={t} texto={t} ancho={124} />
+              ))}
+            </div>
+            <Cable />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 118,
+                height: 96,
+                border: `1.5px solid ${AMBAR}`,
+                borderRadius: 10,
+                background: "#241d12",
+              }}
+            >
+              <div style={{ fontSize: 26, fontWeight: 600 }}>SGC</div>
+              <div style={{ fontSize: 11, color: APAGADO, marginTop: 4 }}>
+                6 módulos
+              </div>
+            </div>
+            <Cable />
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {salidas.map((t) => (
+                <Caja key={t} texto={t} ancho={140} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTop: `1px solid ${LINEA}`,
+            paddingTop: 26,
+            fontSize: 22,
             color: APAGADO,
           }}
         >
           <div style={{ display: "flex" }}>alejodipietro.github.io</div>
-          <div style={{ display: "flex", color: COBRE }}>
-            Next.js · TypeScript · PostgreSQL
+          <div style={{ display: "flex", color: AMBAR }}>
+            TypeScript · Next.js · PostgreSQL
           </div>
         </div>
       </div>

@@ -1,6 +1,20 @@
 import Link from "next/link";
 import type { Proyecto } from "@/lib/content";
 
+export type TextosAcciones = { caso: string; demo: string; repo: string };
+
+export const ACCIONES_ES: TextosAcciones = {
+  caso: "Ver el caso",
+  demo: "Abrir",
+  repo: "Código",
+};
+
+export const ACCIONES_EN: TextosAcciones = {
+  caso: "Read the case",
+  demo: "Open",
+  repo: "Code",
+};
+
 /**
  * Que se puede hacer con un proyecto: leer el caso, abrirlo, ver el codigo.
  *
@@ -12,26 +26,32 @@ import type { Proyecto } from "@/lib/content";
  * Ahora los tres destinos se nombran. Y cuando falta el codigo porque es
  * privado, se dice: una ausencia explicada no parece un olvido.
  */
-export function Acciones({ p }: { p: Proyecto }) {
+export function Acciones({
+  p,
+  textos = ACCIONES_ES,
+}: {
+  p: Proyecto;
+  textos?: TextosAcciones;
+}) {
   const externo = { target: "_blank", rel: "noreferrer" } as const;
 
   return (
     <div className="relative z-10 mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px]">
       {p.caso && (
         <Link href={p.caso} className="link-accion">
-          Ver el caso <Flecha>→</Flecha>
+          {textos.caso} <Flecha>→</Flecha>
         </Link>
       )}
 
       {p.demo && (
         <a href={p.demo} {...externo} className="link-accion">
-          Abrir <Flecha>↗</Flecha>
+          {textos.demo} <Flecha>↗</Flecha>
         </a>
       )}
 
       {p.repo && (
         <a href={p.repo} {...externo} className="link-accion">
-          Código <Flecha>↗</Flecha>
+          {textos.repo} <Flecha>↗</Flecha>
         </a>
       )}
 

@@ -87,13 +87,10 @@ export async function ActividadGithub() {
   });
 
   return (
-    <section aria-labelledby="gh" className="mt-8">
-      <div className="rounded-xl border border-line bg-surface px-5 py-4">
+    <section aria-labelledby="gh" className="mt-5">
+      <div className="marco px-5 py-4 sm:px-6">
         <div className="flex items-center justify-between gap-3">
-          <h2
-            id="gh"
-            className="font-mono text-[11px] uppercase tracking-[0.16em] text-acento-texto"
-          >
+          <h2 id="gh" className="etiqueta text-acento-texto">
             En GitHub
           </h2>
           <a
@@ -108,9 +105,9 @@ export async function ActividadGithub() {
 
         <dl className="mt-3.5 flex flex-wrap gap-x-8 gap-y-3">
           {metricas.map((m) => (
-            <div key={m.etiqueta}>
-              <dd className="font-mono text-lg leading-none">{m.valor}</dd>
+            <div key={m.etiqueta} className="flex flex-col-reverse">
               <dt className="mt-1.5 text-xs text-muted">{m.etiqueta}</dt>
+              <dd className="font-mono text-lg leading-none">{m.valor}</dd>
             </div>
           ))}
         </dl>
