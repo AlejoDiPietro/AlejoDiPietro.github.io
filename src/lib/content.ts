@@ -5,7 +5,7 @@
 
 export const perfil = {
   nombre: "Alejo Di Pietro",
-  titulo: "Desarrollador Full-Stack",
+  titulo: "Líder de Sistemas y Datos",
   stackPrincipal: "Next.js · TypeScript",
   ubicacion: "Buenos Aires, Argentina",
   email: "alejodipietro123@gmail.com",
@@ -18,9 +18,9 @@ export const perfil = {
 
   // Lo primero que se lee. Tiene que sonar a persona, no a CV.
   saludo: "Alejo Di Pietro",
-  hero: "Escribo software que se usa todos los días.",
+  hero: "Construyo sistemas y uso sus datos para decidir.",
   heroDetalle:
-    "Tengo 21 años y soy Analista de Sistemas. Entré a una empresa a los 18 para atender clientes por WhatsApp, pasé por ventas y por tesorería, y terminé diseñando y poniendo en producción el sistema que hoy la corre entera: pedidos, stock, finanzas y facturación ante ARCA.",
+    "Soy Analista de Sistemas y lidero el área de sistemas y datos de Cambren SRL. Diseñé y puse en producción el sistema de gestión que hoy corre toda la empresa —ventas, stock, compras, finanzas y facturación ante ARCA— y trabajo junto a la dirección con la información que genera: estados de resultados, análisis de rentabilidad y detección de pérdidas.",
 } as const;
 
 /**
@@ -31,7 +31,7 @@ export const numeros = [
   { valor: 3, sufijo: " meses", etiqueta: "de cero a producción" },
   { valor: 10, prefijo: "~", sufijo: "", etiqueta: "personas lo usan todos los días" },
   { valor: 4, sufijo: "", etiqueta: "áreas trabajando sobre un mismo dato" },
-  { valor: 0, sufijo: "", etiqueta: "facturas cargadas dos veces desde entonces" },
+  { valor: 6, sufijo: "", etiqueta: "módulos en producción" },
 ] as const;
 
 export type Proyecto = {
@@ -112,21 +112,6 @@ export const proyectos: Proyecto[] = [
       "Pieza de presentación del Cotizador de cercos: a la izquierda el título y las cuatro cosas que hace; a la derecha una pantalla de la app con el cerco dibujado a escala, el formulario de tramos y el total con IVA de $4.183.744.",
   },
   {
-    slug: "aetheria",
-    nombre: "Aetheria Online — un RPG 3D en el navegador",
-    periodo: "2026",
-    resumen:
-      "Un sandbox de combate y progresión con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework. Es lo único de esta lista que podés abrir y usar ahora mismo, sin pedirle permiso a nadie.",
-    stack: ["Three.js", "JavaScript", "WebGL"],
-    demo: "https://alejodipietro.github.io/aetheria/",
-    repo: "https://github.com/AlejoDiPietro/aetheria",
-    captura: "/capturas/aetheria.webp",
-    capturaChrome: false,
-    capturaRatio: "3 / 2",
-    capturaAlt:
-      "Pieza de presentación de Aetheria Online: el título y la lista de características a la izquierda, una captura grande del personaje en la Pradera de Sakura a la derecha, y abajo tres pantallas del juego — inventario, combate y la tienda del mercader.",
-  },
-  {
     slug: "web-publica",
     nombre: "Migración de una web pública a Next.js",
     periodo: "2026",
@@ -153,6 +138,23 @@ export const proyectos: Proyecto[] = [
     resumen:
       "Mi primer proyecto que usó gente de verdad. Modelé la conversación con diagramas de actividades UML antes de escribir una línea, y automatizó las consultas que respondíamos veinte veces por día.",
     stack: ["UML", "Automatización"],
+  },
+  {
+    // Al final a propósito: es un proyecto personal, y arriba van los que
+    // resuelven un problema de negocio.
+    slug: "aetheria",
+    nombre: "Aetheria Online — un RPG 3D en el navegador",
+    periodo: "2026",
+    resumen:
+      "Un proyecto personal: un sandbox de combate y progresión con cinco zonas, loot por rarezas, inventario, equipamiento y jefes, escrito con Three.js en un solo index.html sin build ni framework.",
+    stack: ["Three.js", "JavaScript", "WebGL"],
+    demo: "https://alejodipietro.github.io/aetheria/",
+    repo: "https://github.com/AlejoDiPietro/aetheria",
+    captura: "/capturas/aetheria.webp",
+    capturaChrome: false,
+    capturaRatio: "3 / 2",
+    capturaAlt:
+      "Pieza de presentación de Aetheria Online: el título y la lista de características a la izquierda, una captura grande del personaje en la Pradera de Sakura a la derecha, y abajo tres pantallas del juego — inventario, combate y la tienda del mercader.",
   },
   {
     slug: "este-sitio",
@@ -239,10 +241,10 @@ export const experiencia: Experiencia[] = [
     periodo: "2024 — Actualidad",
     puestos: [
       {
-        puesto: "Desarrollador Full-Stack",
+        puesto: "Líder de Sistemas y Datos",
         periodo: "Abril 2026 — Actualidad",
         descripcion:
-          "Diseñé y desarrollé end-to-end el ERP que corre la operación de la empresa, integré la facturación electrónica con ARCA y sumé un asistente interno con IA sobre los datos del sistema.",
+          "Relevé los procesos de todas las áreas y diseñé, desarrollé e implementé el ERP que corre la operación, con facturación electrónica ante ARCA y actualización automática de costos a partir de las facturas de proveedores. Trabajo junto a la dirección, el estudio contable y los asesores externos: elaboro los estados de resultados y los análisis de rentabilidad, y aporto los datos para detectar y corregir desvíos operativos.",
       },
       {
         puesto: "Analista de Finanzas y Tesorería",
@@ -318,7 +320,7 @@ export const formacion = [
 
 /** El bloque personal. Sin esto la pagina podria ser de cualquiera. */
 export const sobreMi = [
-  "Entré a Cambren a los 18 para atender clientes por WhatsApp. Después pasé por ventas, por finanzas y por tesorería, y en el medio me recibí de Analista de Sistemas. Cuando me tocó construir el sistema de la empresa ya conocía el negocio desde adentro: sabía qué parte de cada planilla era el proceso real y qué parte era un parche que alguien había inventado para sobrevivir.",
-  "Eso es lo que más me gusta del oficio: entender un problema desordenado y salir con algo que la gente usa todos los días sin pensar en que alguien lo escribió.",
+  "Empecé en Cambren en atención al cliente y pasé por e-commerce, finanzas y tesorería antes de dedicarme a sistemas; en el medio me recibí de Analista de Sistemas. Cuando me tocó construir el sistema de la empresa ya conocía el negocio desde adentro: sabía qué parte de cada planilla era el proceso real y qué parte era un parche que alguien había inventado para sobrevivir.",
+  "Hoy mi trabajo está en el cruce entre la tecnología y la gestión: construyo las herramientas y después las uso, con la dirección, para decidir. Lo que más valoro de ese lugar es poder seguir un dato desde que se carga hasta la decisión que se toma con él.",
   "Sigo cursando Ingeniería en Informática en la USAL. Fuera de la pantalla voy al gimnasio, juego al fútbol y al pádel con amigos, y soy bastante fanático del cine de terror.",
 ];
